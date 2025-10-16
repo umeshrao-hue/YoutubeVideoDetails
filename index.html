@@ -346,15 +346,8 @@
                 <div class="chart-header">
                     <span>View Count Distribution</span>
                 </div>
-<<<<<<< HEAD
-                <canvas id="barChart"></canvas>
-            </div>
-
-
-=======
                 <canvas id="barChart1"></canvas>
             </div>
->>>>>>> 836ca5b (Describe your changes)
 
             <div class="data-table">
                 <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
@@ -517,9 +510,6 @@
         // Google Sheets Configuration
         const SHEET_ID = '1abdf5Fc6lxGV7fAHENdo2GIf3rPwUlZ93bTs4buWSis';
         
-<<<<<<< HEAD
-        let barChart;
-=======
         const SHEETS = [
             { gid: '0', name: 'YouTube Shorts Playlist', index: 1 },
             { gid: '330049017', name: 'K12 Shorts Playlist', index: 2 },
@@ -532,7 +522,6 @@
         function getSheetURL(gid) {
             return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
         }
->>>>>>> 836ca5b (Describe your changes)
 
         function formatNumber(num) {
             if (!num) return '0';
