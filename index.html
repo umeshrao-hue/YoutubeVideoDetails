@@ -28,7 +28,7 @@
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             animation: fadeInDown 0.8s ease;
         }
 
@@ -44,6 +44,24 @@
         .header p {
             font-size: 16px;
             color: #cbd5e1;
+        }
+
+        .section-divider {
+            margin: 60px 0 40px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: fadeIn 0.8s ease;
         }
 
         .stats-grid {
@@ -162,6 +180,7 @@
             padding: 30px;
             overflow-x: auto;
             animation: fadeIn 1.2s ease;
+            margin-bottom: 30px;
         }
 
         table {
@@ -214,40 +233,6 @@
             text-decoration: underline;
         }
 
-        .info-notice {
-            background: rgba(59, 130, 246, 0.9);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.6;
-            text-align: center;
-        }
-
-        .setup-notice {
-            background: rgba(251, 191, 36, 0.9);
-            color: #78350f;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .setup-notice h3 {
-            margin-bottom: 10px;
-            color: #92400e;
-        }
-
-        .setup-notice ol {
-            margin: 10px 0 10px 20px;
-        }
-
-        .setup-notice li {
-            margin: 5px 0;
-        }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -286,65 +271,90 @@
             font-size: 14px;
             margin-top: 20px;
         }
+
+        .refresh-all-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 1000;
+        }
+
+        .refresh-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+
+        .refresh-all-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
     </style>
 </head>
 <body>
+    <button class="refresh-all-btn" onclick="fetchAllData()" id="refreshAllBtn">🔄 Refresh All Data</button>
+
     <div class="dashboard-container">
         <div class="header">
             <h1>📊 YouTube Analytics Dashboard</h1>
-            <p>Live tracking of playlist view counts from Google Sheets</p>
-        </div>
-
-        <div class="setup-notice" id="setupNotice">
-            <h3>⚙️ Setup Required:</h3>
-            <ol>
-                <li>Open your Google Sheet</li>
-                <li>Go to <strong>File → Share → Publish to web</strong></li>
-                <li>Select your sheet tab and choose <strong>"Comma-separated values (.csv)"</strong></li>
-                <li>Click <strong>"Publish"</strong></li>
-                <li>Copy the CSV link and replace it in the code (line with SHEET_CSV_URL)</li>
-            </ol>
+            <p>Comprehensive view of all playlist analytics from Google Sheets</p>
         </div>
 
         <div id="loading" class="loading">
             <div class="spinner"></div>
-            <p>Loading analytics data from Google Sheets...</p>
+            <p>Loading analytics data from all sheets...</p>
         </div>
 
         <div id="error" class="error"></div>
 
         <div id="dashboardContent" style="display: none;">
+            <!-- YouTube Shorts Playlist Section -->
+            <div class="section-divider">
+                <div class="section-title">📺 YouTube Shorts Playlist</div>
+            </div>
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-label">Total Playlists</div>
-                    <div class="stat-value" id="totalPlaylists">0</div>
+                    <div class="stat-value" id="totalPlaylists1">0</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Total Views</div>
-                    <div class="stat-value" id="totalViews">0</div>
+                    <div class="stat-value" id="totalViews1">0</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Average Views</div>
-                    <div class="stat-value" id="avgViews">0</div>
+                    <div class="stat-value" id="avgViews1">0</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Top Playlist</div>
-                    <div class="stat-value" id="topPlaylist" style="font-size: 18px;">-</div>
+                    <div class="stat-value" id="topPlaylist1" style="font-size: 18px;">-</div>
                 </div>
             </div>
 
             <div class="chart-container">
                 <div class="chart-header">
                     <span>View Count Distribution</span>
-                    <button class="refresh-btn" onclick="fetchData()">
-                        <span>🔄</span>
-                        <span>Refresh Data</span>
-                    </button>
                 </div>
+<<<<<<< HEAD
                 <canvas id="barChart"></canvas>
             </div>
 
 
+=======
+                <canvas id="barChart1"></canvas>
+            </div>
+>>>>>>> 836ca5b (Describe your changes)
 
             <div class="data-table">
                 <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
@@ -357,7 +367,145 @@
                             <th>Playlist Link</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody"></tbody>
+                    <tbody id="tableBody1"></tbody>
+                </table>
+            </div>
+
+            <!-- K12 Shorts Playlist Section -->
+            <div class="section-divider">
+                <div class="section-title">🎓 K12 Shorts Playlist</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Playlists</div>
+                    <div class="stat-value" id="totalPlaylists2">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Views</div>
+                    <div class="stat-value" id="totalViews2">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Views</div>
+                    <div class="stat-value" id="avgViews2">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Playlist</div>
+                    <div class="stat-value" id="topPlaylist2" style="font-size: 18px;">-</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span>View Count Distribution</span>
+                </div>
+                <canvas id="barChart2"></canvas>
+            </div>
+
+            <div class="data-table">
+                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Channel Name</th>
+                            <th>View Count</th>
+                            <th>Playlist Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody2"></tbody>
+                </table>
+            </div>
+
+            <!-- SIQ Shorts Playlist Section -->
+            <div class="section-divider">
+                <div class="section-title">🎯 SIQ Shorts Playlist</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Playlists</div>
+                    <div class="stat-value" id="totalPlaylists3">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Views</div>
+                    <div class="stat-value" id="totalViews3">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Views</div>
+                    <div class="stat-value" id="avgViews3">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Playlist</div>
+                    <div class="stat-value" id="topPlaylist3" style="font-size: 18px;">-</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span>View Count Distribution</span>
+                </div>
+                <canvas id="barChart3"></canvas>
+            </div>
+
+            <div class="data-table">
+                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Channel Name</th>
+                            <th>View Count</th>
+                            <th>Playlist Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody3"></tbody>
+                </table>
+            </div>
+
+            <!-- Combined Sheet Data Section -->
+            <div class="section-divider">
+                <div class="section-title">📊 Combined Sheet Data</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Playlists</div>
+                    <div class="stat-value" id="totalPlaylists4">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Views</div>
+                    <div class="stat-value" id="totalViews4">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Views</div>
+                    <div class="stat-value" id="avgViews4">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Playlist</div>
+                    <div class="stat-value" id="topPlaylist4" style="font-size: 18px;">-</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span>View Count Distribution</span>
+                </div>
+                <canvas id="barChart4"></canvas>
+            </div>
+
+            <div class="data-table">
+                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Channel Name</th>
+                            <th>View Count</th>
+                            <th>Playlist Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody4"></tbody>
                 </table>
             </div>
 
@@ -366,11 +514,25 @@
     </div>
 
     <script>
-        // Google Sheets CSV URL - IMPORTANT: You need to publish your sheet as CSV
-        // Go to File → Share → Publish to web → Select CSV format
-        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1abdf5Fc6lxGV7fAHENdo2GIf3rPwUlZ93bTs4buWSis/export?format=csv&gid=0';
+        // Google Sheets Configuration
+        const SHEET_ID = '1abdf5Fc6lxGV7fAHENdo2GIf3rPwUlZ93bTs4buWSis';
         
+<<<<<<< HEAD
         let barChart;
+=======
+        const SHEETS = [
+            { gid: '0', name: 'YouTube Shorts Playlist', index: 1 },
+            { gid: '330049017', name: 'K12 Shorts Playlist', index: 2 },
+            { gid: '523001156', name: 'SIQ Shorts Playlist', index: 3 },
+            { gid: '439811275', name: 'Combined Sheet Data', index: 4 }
+        ];
+
+        let charts = {};
+
+        function getSheetURL(gid) {
+            return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
+        }
+>>>>>>> 836ca5b (Describe your changes)
 
         function formatNumber(num) {
             if (!num) return '0';
@@ -389,17 +551,37 @@
             errorDiv.style.display = 'block';
         }
 
-        function hideSetupNotice() {
-            const setupNotice = document.getElementById('setupNotice');
-            if (setupNotice) {
-                setupNotice.style.display = 'none';
+        async function fetchSheetData(sheet) {
+            const sheetURL = getSheetURL(sheet.gid);
+            console.log(`Fetching ${sheet.name} from:`, sheetURL);
+            
+            const response = await fetch(sheetURL);
+
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${sheet.name}: ${response.status}`);
             }
+
+            const csvText = await response.text();
+            
+            return new Promise((resolve, reject) => {
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        console.log(`Parsed ${sheet.name}:`, results.data);
+                        resolve(results.data);
+                    },
+                    error: function(error) {
+                        reject(new Error(`CSV parsing error for ${sheet.name}: ${error.message}`));
+                    }
+                });
+            });
         }
 
-        async function fetchData() {
+        async function fetchAllData() {
             const loadingDiv = document.getElementById('loading');
             const dashboardContent = document.getElementById('dashboardContent');
-            const refreshBtn = document.querySelector('.refresh-btn');
+            const refreshBtn = document.getElementById('refreshAllBtn');
             const errorDiv = document.getElementById('error');
 
             loadingDiv.style.display = 'block';
@@ -408,66 +590,28 @@
             if (refreshBtn) refreshBtn.disabled = true;
 
             try {
-                console.log('Fetching data from Google Sheets CSV...');
-                
-                const response = await fetch(SHEET_CSV_URL);
+                // Fetch all sheets in parallel
+                const allDataPromises = SHEETS.map(sheet => fetchSheetData(sheet));
+                const allData = await Promise.all(allDataPromises);
 
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch data: ${response.status}. Make sure you've published the sheet as CSV (File → Share → Publish to web).`);
-                }
-
-                const csvText = await response.text();
-                console.log('Received CSV data');
-
-                // Parse CSV using PapaParse
-                Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: function(results) {
-                        console.log('Parsed data:', results.data);
-                        
-                        if (results.data.length === 0) {
-                            throw new Error('No data found in the CSV.');
-                        }
-
-                        hideSetupNotice();
-                        displayDashboard(results.data);
-                        
-                        loadingDiv.style.display = 'none';
-                        dashboardContent.style.display = 'block';
-                        
-                        // Update last updated time
-                        document.getElementById('lastUpdated').textContent = 
-                            `Last updated: ${new Date().toLocaleString()}`;
-                    },
-                    error: function(error) {
-                        throw new Error(`CSV parsing error: ${error.message}`);
-                    }
+                // Display each sheet's data
+                SHEETS.forEach((sheet, idx) => {
+                    displayDashboard(allData[idx], sheet.index);
                 });
+
+                loadingDiv.style.display = 'none';
+                dashboardContent.style.display = 'block';
+                
+                // Update last updated time
+                document.getElementById('lastUpdated').textContent = 
+                    `Last updated: ${new Date().toLocaleString()} | All sheets loaded successfully`;
 
             } catch (error) {
                 console.error('Error details:', error);
                 loadingDiv.style.display = 'none';
                 
-                let errorMessage = '';
-                
-                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-                    errorMessage = `<strong>Connection Error:</strong><br><br>
-                        Cannot connect to Google Sheets. Please make sure:<br><br>
-                        1. The sheet is published as CSV:<br>
-                           Go to <strong>File → Share → Publish to web</strong><br>
-                           Choose <strong>CSV format</strong> and click Publish<br><br>
-                        2. You're using the correct CSV export URL<br><br>
-                        3. Your internet connection is working<br><br>
-                        <small>Technical error: ${error.message}</small>`;
-                } else if (error.message.includes('403') || error.message.includes('401')) {
-                    errorMessage = `<strong>Access Denied:</strong><br><br>
-                        The sheet is not publicly accessible.<br>
-                        Please publish it to the web as CSV.<br><br>
-                        <small>Technical error: ${error.message}</small>`;
-                } else {
-                    errorMessage = `<strong>Error:</strong><br><br>${error.message}`;
-                }
+                let errorMessage = `<strong>Error Loading Data:</strong><br><br>${error.message}<br><br>
+                    Please ensure the Google Sheet is published as CSV.`;
                 
                 showError(errorMessage);
             } finally {
@@ -475,16 +619,15 @@
             }
         }
 
-        function displayDashboard(data) {
-            console.log('Displaying dashboard with data:', data);
+        function displayDashboard(data, index) {
+            console.log(`Displaying dashboard ${index} with data:`, data);
 
-            // Filter out any invalid entries - handle empty rows and total rows
+            // Filter out any invalid entries
             const validData = data.filter(item => {
                 const channelName = item['Channel Name'] || item.channelName || item['channel_name'] || item['Channel name'];
                 const viewCount = item['View Counts'] || item['View Count'] || item.viewCount || item['view_count'] || item.viewCounts;
                 const playlistLink = item['Playlist Link'] || item.playlistLink || item['playlist_link'] || item['Playlist link'];
                 
-                // Filter out empty rows, total rows, and rows without valid data
                 return channelName && 
                        channelName.trim() !== '' && 
                        viewCount && 
@@ -496,11 +639,9 @@
             });
 
             if (validData.length === 0) {
-                showError('No valid data found. Please check your Google Sheet has:<br>- "Channel Name" column<br>- "Playlist Link" column<br>- "View Counts" or "View Count" column with numbers');
+                console.log(`No valid data for sheet ${index}`);
                 return;
             }
-
-            console.log('Valid data after filtering:', validData);
 
             // Sort data by view count (descending)
             const sortedData = validData.sort((a, b) => {
@@ -519,10 +660,10 @@
             const topPlaylist = sortedData[0]?.['Channel Name'] || sortedData[0]?.channelName || sortedData[0]?.['channel_name'] || '-';
 
             // Update stats
-            document.getElementById('totalPlaylists').textContent = totalPlaylists;
-            document.getElementById('totalViews').textContent = formatNumber(totalViews);
-            document.getElementById('avgViews').textContent = formatNumber(avgViews);
-            document.getElementById('topPlaylist').textContent = topPlaylist;
+            document.getElementById(`totalPlaylists${index}`).textContent = totalPlaylists;
+            document.getElementById(`totalViews${index}`).textContent = formatNumber(totalViews);
+            document.getElementById(`avgViews${index}`).textContent = formatNumber(avgViews);
+            document.getElementById(`topPlaylist${index}`).textContent = topPlaylist;
 
             // Prepare chart data
             const labels = sortedData.map(item => 
@@ -533,10 +674,10 @@
             );
 
             // Create bar chart
-            const barCtx = document.getElementById('barChart').getContext('2d');
-            if (barChart) barChart.destroy();
+            const barCtx = document.getElementById(`barChart${index}`).getContext('2d');
+            if (charts[`chart${index}`]) charts[`chart${index}`].destroy();
             
-            barChart = new Chart(barCtx, {
+            charts[`chart${index}`] = new Chart(barCtx, {
                 type: 'bar',
                 data: {
                     labels: labels,
@@ -584,15 +725,15 @@
             });
 
             // Populate table
-            const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = sortedData.map((item, index) => {
+            const tableBody = document.getElementById(`tableBody${index}`);
+            tableBody.innerHTML = sortedData.map((item, idx) => {
                 const channelName = item['Channel Name'] || item.channelName || item['channel_name'] || 'Unknown';
                 const viewCount = parseInt(String(item['View Counts'] || item['View Count'] || item.viewCount || item['view_count'] || item.viewCounts || 0).replace(/,/g, ''));
                 const playlistLink = item['Playlist Link'] || item.playlistLink || item['playlist_link'] || item.link || '#';
                 
                 return `
                     <tr>
-                        <td><strong>${index + 1}</strong></td>
+                        <td><strong>${idx + 1}</strong></td>
                         <td>${channelName}</td>
                         <td><strong>${formatNumber(viewCount)}</strong></td>
                         <td><a href="${playlistLink}" target="_blank" class="playlist-link">View Playlist →</a></td>
@@ -602,10 +743,10 @@
         }
 
         // Auto-refresh every 5 minutes
-        setInterval(fetchData, 5 * 60 * 1000);
+        setInterval(fetchAllData, 5 * 60 * 1000);
 
         // Initial load
-        fetchData();
+        fetchAllData();
     </script>
 </body>
 </html>
