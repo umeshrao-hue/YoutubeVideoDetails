@@ -378,26 +378,26 @@
                 <div class="verticals-grid">
                     <div class="vertical-card">
                         <div class="vertical-name">📚 Test Prep</div>
-                        <div class="vertical-views" id="verticalViews1">0</div>
-                    </div>
-                    <div class="vertical-card">
-                        <div class="vertical-name">🎓 K-12</div>
                         <div class="vertical-views" id="verticalViews2">0</div>
                     </div>
                     <div class="vertical-card">
-                        <div class="vertical-name">🎯 SIQ</div>
+                        <div class="vertical-name">🎓 K-12</div>
                         <div class="vertical-views" id="verticalViews3">0</div>
                     </div>
                     <div class="vertical-card">
-                        <div class="vertical-name">💎 Adda Paid</div>
+                        <div class="vertical-name">🎯 SIQ</div>
                         <div class="vertical-views" id="verticalViews4">0</div>
+                    </div>
+                    <div class="vertical-card">
+                        <div class="vertical-name">💎 Adda Paid</div>
+                        <div class="vertical-views" id="verticalViews5">0</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Test Prep Playlist Section -->
+            <!-- Combined Playlist Section -->
             <div class="section-divider">
-                <div class="section-title">📚 Test Prep Playlist</div>
+                <div class="section-title">📊 Combined Playlist</div>
             </div>
 
             <div class="stats-grid">
@@ -441,9 +441,9 @@
                 </table>
             </div>
 
-            <!-- K-12 Playlist Section -->
+            <!-- Test Prep Playlist Section -->
             <div class="section-divider">
-                <div class="section-title">🎓 K-12 Playlist</div>
+                <div class="section-title">📚 Test Prep Playlist</div>
             </div>
 
             <div class="stats-grid">
@@ -487,9 +487,9 @@
                 </table>
             </div>
 
-            <!-- SIQ Playlist Section -->
+            <!-- K-12 Playlist Section -->
             <div class="section-divider">
-                <div class="section-title">🎯 SIQ Playlist</div>
+                <div class="section-title">🎓 K-12 Playlist</div>
             </div>
 
             <div class="stats-grid">
@@ -533,9 +533,9 @@
                 </table>
             </div>
 
-            <!-- Adda Paid Playlist Section -->
+            <!-- SIQ Playlist Section -->
             <div class="section-divider">
-                <div class="section-title">💎 Adda Paid Playlist</div>
+                <div class="section-title">🎯 SIQ Playlist</div>
             </div>
 
             <div class="stats-grid">
@@ -579,6 +579,52 @@
                 </table>
             </div>
 
+            <!-- Adda Paid Playlist Section -->
+            <div class="section-divider">
+                <div class="section-title">💎 Adda Paid Playlist</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Playlists</div>
+                    <div class="stat-value" id="totalPlaylists5">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Views</div>
+                    <div class="stat-value" id="totalViews5">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Views</div>
+                    <div class="stat-value" id="avgViews5">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Top Playlist</div>
+                    <div class="stat-value" id="topPlaylist5" style="font-size: 18px;">-</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <span>View Count Distribution</span>
+                </div>
+                <canvas id="barChart5"></canvas>
+            </div>
+
+            <div class="data-table">
+                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Channel Name</th>
+                            <th>View Count</th>
+                            <th>Playlist Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody5"></tbody>
+                </table>
+            </div>
+
             <div class="last-updated" id="lastUpdated"></div>
         </div>
     </div>
@@ -588,10 +634,11 @@
         const SHEET_ID = '1abdf5Fc6lxGV7fAHENdo2GIf3rPwUlZ93bTs4buWSis';
         
         const SHEETS = [
-            { gid: '0', name: 'Test Prep Playlist', index: 1 },
-            { gid: '330049017', name: 'K-12 Playlist', index: 2 },
-            { gid: '523001156', name: 'SIQ Playlist', index: 3 },
-            { gid: '1431804044', name: 'Adda Paid Playlist', index: 4 }
+            { gid: '439811275', name: 'Combined Playlist', index: 1 },
+            { gid: '0', name: 'Test Prep Playlist', index: 2 },
+            { gid: '330049017', name: 'K-12 Playlist', index: 3 },
+            { gid: '523001156', name: 'SIQ Playlist', index: 4 },
+            { gid: '1431804044', name: 'Adda Paid Playlist', index: 5 }
         ];
 
         let charts = {};
@@ -691,10 +738,10 @@
 
         function updateVerticalOverview() {
             // Update the vertical overview cards with total views
-            document.getElementById('verticalViews1').textContent = formatNumber(verticalTotalViews[1] || 0);
             document.getElementById('verticalViews2').textContent = formatNumber(verticalTotalViews[2] || 0);
             document.getElementById('verticalViews3').textContent = formatNumber(verticalTotalViews[3] || 0);
             document.getElementById('verticalViews4').textContent = formatNumber(verticalTotalViews[4] || 0);
+            document.getElementById('verticalViews5').textContent = formatNumber(verticalTotalViews[5] || 0);
         }
 
         function displayDashboard(data, index) {
@@ -737,8 +784,8 @@
             const avgViews = Math.round(totalViews / totalPlaylists);
             const topPlaylist = sortedData[0]?.['Channel Name'] || sortedData[0]?.channelName || sortedData[0]?.['channel_name'] || '-';
 
-            // Store total views for vertical overview (indices 1-4 are Test Prep, K-12, SIQ, Adda Paid)
-            if (index >= 1 && index <= 4) {
+            // Store total views for vertical overview (indices 2-5 are Test Prep, K-12, SIQ, Adda Paid)
+            if (index >= 2 && index <= 5) {
                 verticalTotalViews[index] = totalViews;
             }
 
