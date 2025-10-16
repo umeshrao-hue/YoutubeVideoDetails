@@ -344,10 +344,7 @@
                 <canvas id="barChart"></canvas>
             </div>
 
-            <div class="chart-container">
-                <div class="chart-header">View Count Trend</div>
-                <canvas id="lineChart"></canvas>
-            </div>
+
 
             <div class="data-table">
                 <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
@@ -373,7 +370,7 @@
         // Go to File → Share → Publish to web → Select CSV format
         const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1abdf5Fc6lxGV7fAHENdo2GIf3rPwUlZ93bTs4buWSis/export?format=csv&gid=0';
         
-        let barChart, lineChart;
+        let barChart;
 
         function formatNumber(num) {
             if (!num) return '0';
@@ -550,62 +547,6 @@
                         borderColor: 'rgba(102, 126, 234, 1)',
                         borderWidth: 2,
                         borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return 'Views: ' + context.parsed.y.toLocaleString();
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return formatNumber(value);
-                                }
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                maxRotation: 45,
-                                minRotation: 45
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Create line chart
-            const lineCtx = document.getElementById('lineChart').getContext('2d');
-            if (lineChart) lineChart.destroy();
-            
-            lineChart = new Chart(lineCtx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'View Count Trend',
-                        data: viewCounts,
-                        borderColor: 'rgba(118, 75, 162, 1)',
-                        backgroundColor: 'rgba(118, 75, 162, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 5,
-                        pointBackgroundColor: 'rgba(118, 75, 162, 1)',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2
                     }]
                 },
                 options: {
