@@ -46,6 +46,186 @@
             color: #cbd5e1;
         }
 
+        .vertical-modal {
+            display: none !important;
+        }
+
+        .my-vertical-badge {
+            display: none !important;
+        }
+
+        .highlighted-section {
+            background: none !important;
+            box-shadow: none !important;
+            animation: none !important;
+            order: initial !important;
+        }
+
+        .vertical-card.selected {
+            background: rgba(255, 255, 255, 0.15) !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .vertical-card.selected .vertical-name {
+            color: #a78bfa !important;
+        }
+
+        .vertical-card.selected .vertical-views {
+            color: #fff !important;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: slideIn 0.5s ease;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        .vertical-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .vertical-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .vertical-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .vertical-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .skip-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .skip-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .highlighted-section {
+            order: -1;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .highlighted-section .section-title {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(251, 191, 36, 0.9);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(251, 191, 36, 1);
+            }
+        }
+
+        .vertical-card.selected {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .vertical-card.selected .vertical-name {
+            color: #78350f;
+        }
+
+        .vertical-card.selected .vertical-views {
+            color: #1e293b;
+        }
+
+        .my-vertical-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #78350f;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-left: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .sections-container {
+            display: flex;
+            flex-direction: column;
+        }
+
         .overview-section {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -261,6 +441,11 @@
             text-decoration: underline;
         }
 
+        .rank-medal {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -300,353 +485,274 @@
             margin-top: 20px;
         }
 
-        .refresh-all-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-            z-index: 1000;
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+
+            .overview-section {
+                padding: 20px;
+            }
+
+            .overview-title {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+
+            .verticals-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+            }
+
+            .vertical-card {
+                padding: 15px;
+            }
+
+            .vertical-name {
+                font-size: 13px;
+            }
+
+            .vertical-views {
+                font-size: 24px;
+            }
+
+            .section-title {
+                padding: 12px 24px;
+                font-size: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+            }
+
+            .stat-value {
+                font-size: 24px;
+            }
+
+            .chart-container {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .chart-header {
+                font-size: 18px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .data-table {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .data-table h2 {
+                font-size: 18px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th, td {
+                padding: 10px 8px;
+            }
+
+            th {
+                font-size: 11px;
+            }
+
+            .section-divider {
+                margin: 40px 0 30px 0;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .modal-content h2 {
+                font-size: 24px;
+            }
+
+            .modal-content p {
+                font-size: 14px;
+            }
+
+            .vertical-buttons {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .vertical-btn {
+                padding: 15px 20px;
+                font-size: 15px;
+            }
         }
 
-        .refresh-all-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
-        }
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 24px;
+            }
 
-        .refresh-all-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+            .verticals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px 5px;
+            }
+
+            .playlist-link {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <button class="refresh-all-btn" onclick="fetchAllData()" id="refreshAllBtn">🔄 Refresh All Data</button>
-
     <div class="dashboard-container">
         <div class="header">
             <h1>YouTube Analytics Dashboard</h1>
-            <p>Comprehensive view of all playlist analytics from Google Sheets</p>
+            <p>Comprehensive view of all playlist analytics</p>
+        </div>
+
+        <div id="verticalModal" class="vertical-modal" style="display: none;">
         </div>
 
         <div id="loading" class="loading">
             <div class="spinner"></div>
-            <p>Loading analytics data from all playlists...</p>
+            <p>Loading analytics data...</p>
         </div>
 
         <div id="error" class="error"></div>
 
         <div id="dashboardContent" style="display: none;">
-            <!-- Overview Section with Verticals -->
             <div class="overview-section">
                 <div class="overview-title">📈 Verticals Overview</div>
                 <div class="verticals-grid">
-                    <div class="vertical-card">
+                    <div class="vertical-card" data-vertical="2">
                         <div class="vertical-name">📚 Test Prep</div>
                         <div class="vertical-views" id="verticalViews2">0</div>
                     </div>
-                    <div class="vertical-card">
+                    <div class="vertical-card" data-vertical="3">
                         <div class="vertical-name">🎓 K-12</div>
                         <div class="vertical-views" id="verticalViews3">0</div>
                     </div>
-                    <div class="vertical-card">
+                    <div class="vertical-card" data-vertical="4">
                         <div class="vertical-name">🎯 SIQ</div>
                         <div class="vertical-views" id="verticalViews4">0</div>
                     </div>
-                    <div class="vertical-card">
+                    <div class="vertical-card" data-vertical="5">
                         <div class="vertical-name">💎 Adda Paid</div>
                         <div class="vertical-views" id="verticalViews5">0</div>
                     </div>
-                    <div class="vertical-card">
+                    <div class="vertical-card" data-vertical="6">
                         <div class="vertical-name">🌟 Fanpage</div>
                         <div class="vertical-views" id="verticalViews6">0</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Combined Playlist Section -->
-            <div class="section-divider">
-                <div class="section-title">📊 Combined Playlist</div>
-            </div>
+            <div class="sections-container" id="sectionsContainer">
+                <div class="playlist-section" data-section="1">
+                    <div class="section-divider"><div class="section-title">Combined Playlist</div></div>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-label">Total Playlists</div><div class="stat-value" id="totalPlaylists1">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Total Views</div><div class="stat-value" id="totalViews1">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Average Views</div><div class="stat-value" id="avgViews1">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Top Playlist</div><div class="stat-value" id="topPlaylist1" style="font-size: 18px;">-</div></div>
+                    </div>
+                    <div class="chart-container"><div class="chart-header"><span>View Count Distribution</span></div><canvas id="barChart1"></canvas></div>
+                    <div class="data-table"><h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2><table><thead><tr><th>Rank</th><th>Channel Name</th><th>View Count</th><th>Playlist Link</th></tr></thead><tbody id="tableBody1"></tbody></table></div>
+                </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Playlists</div>
-                    <div class="stat-value" id="totalPlaylists1">0</div>
+                <div class="playlist-section" data-section="2">
+                    <div class="section-divider"><div class="section-title" id="sectionTitle2">📚 Test Prep Playlist</div></div>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-label">Total Playlists</div><div class="stat-value" id="totalPlaylists2">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Total Views</div><div class="stat-value" id="totalViews2">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Average Views</div><div class="stat-value" id="avgViews2">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Top Playlist</div><div class="stat-value" id="topPlaylist2" style="font-size: 18px;">-</div></div>
+                    </div>
+                    <div class="chart-container"><div class="chart-header"><span>View Count Distribution</span></div><canvas id="barChart2"></canvas></div>
+                    <div class="data-table"><h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2><table><thead><tr><th>Rank</th><th>Channel Name</th><th>View Count</th><th>Playlist Link</th></tr></thead><tbody id="tableBody2"></tbody></table></div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Views</div>
-                    <div class="stat-value" id="totalViews1">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Average Views</div>
-                    <div class="stat-value" id="avgViews1">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Top Playlist</div>
-                    <div class="stat-value" id="topPlaylist1" style="font-size: 18px;">-</div>
-                </div>
-            </div>
 
-            <div class="chart-container">
-                <div class="chart-header">
-                    <span>View Count Distribution</span>
+                <div class="playlist-section" data-section="3">
+                    <div class="section-divider"><div class="section-title" id="sectionTitle3">🎓 K-12 Playlist</div></div>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-label">Total Playlists</div><div class="stat-value" id="totalPlaylists3">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Total Views</div><div class="stat-value" id="totalViews3">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Average Views</div><div class="stat-value" id="avgViews3">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Top Playlist</div><div class="stat-value" id="topPlaylist3" style="font-size: 18px;">-</div></div>
+                    </div>
+                    <div class="chart-container"><div class="chart-header"><span>View Count Distribution</span></div><canvas id="barChart3"></canvas></div>
+                    <div class="data-table"><h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2><table><thead><tr><th>Rank</th><th>Channel Name</th><th>View Count</th><th>Playlist Link</th></tr></thead><tbody id="tableBody3"></tbody></table></div>
                 </div>
-                <canvas id="barChart1"></canvas>
-            </div>
 
-            <div class="data-table">
-                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Channel Name</th>
-                            <th>View Count</th>
-                            <th>Playlist Link</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody1"></tbody>
-                </table>
-            </div>
+                <div class="playlist-section" data-section="4">
+                    <div class="section-divider"><div class="section-title" id="sectionTitle4">🎯 SIQ Playlist</div></div>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-label">Total Playlists</div><div class="stat-value" id="totalPlaylists4">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Total Views</div><div class="stat-value" id="totalViews4">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Average Views</div><div class="stat-value" id="avgViews4">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Top Playlist</div><div class="stat-value" id="topPlaylist4" style="font-size: 18px;">-</div></div>
+                    </div>
+                    <div class="chart-container"><div class="chart-header"><span>View Count Distribution</span></div><canvas id="barChart4"></canvas></div>
+                    <div class="data-table"><h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2><table><thead><tr><th>Rank</th><th>Channel Name</th><th>View Count</th><th>Playlist Link</th></tr></thead><tbody id="tableBody4"></tbody></table></div>
+                </div>
 
-            <!-- Test Prep Playlist Section -->
-            <div class="section-divider">
-                <div class="section-title">📚 Test Prep Playlist</div>
-            </div>
+                <div class="playlist-section" data-section="5">
+                    <div class="section-divider"><div class="section-title" id="sectionTitle5">💎 Adda Paid Playlist</div></div>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-label">Total Playlists</div><div class="stat-value" id="totalPlaylists5">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Total Views</div><div class="stat-value" id="totalViews5">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Average Views</div><div class="stat-value" id="avgViews5">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Top Playlist</div><div class="stat-value" id="topPlaylist5" style="font-size: 18px;">-</div></div>
+                    </div>
+                    <div class="chart-container"><div class="chart-header"><span>View Count Distribution</span></div><canvas id="barChart5"></canvas></div>
+                    <div class="data-table"><h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2><table><thead><tr><th>Rank</th><th>Channel Name</th><th>View Count</th><th>Playlist Link</th></tr></thead><tbody id="tableBody5"></tbody></table></div>
+                </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Playlists</div>
-                    <div class="stat-value" id="totalPlaylists2">0</div>
+                <div class="playlist-section" data-section="6">
+                    <div class="section-divider"><div class="section-title" id="sectionTitle6">🌟 Fanpage Playlist</div></div>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-label">Total Playlists</div><div class="stat-value" id="totalPlaylists6">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Total Views</div><div class="stat-value" id="totalViews6">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Average Views</div><div class="stat-value" id="avgViews6">0</div></div>
+                        <div class="stat-card"><div class="stat-label">Top Playlist</div><div class="stat-value" id="topPlaylist6" style="font-size: 18px;">-</div></div>
+                    </div>
+                    <div class="chart-container"><div class="chart-header"><span>View Count Distribution</span></div><canvas id="barChart6"></canvas></div>
+                    <div class="data-table"><h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2><table><thead><tr><th>Rank</th><th>Channel Name</th><th>View Count</th><th>Playlist Link</th></tr></thead><tbody id="tableBody6"></tbody></table></div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Views</div>
-                    <div class="stat-value" id="totalViews2">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Average Views</div>
-                    <div class="stat-value" id="avgViews2">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Top Playlist</div>
-                    <div class="stat-value" id="topPlaylist2" style="font-size: 18px;">-</div>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <div class="chart-header">
-                    <span>View Count Distribution</span>
-                </div>
-                <canvas id="barChart2"></canvas>
-            </div>
-
-            <div class="data-table">
-                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Channel Name</th>
-                            <th>View Count</th>
-                            <th>Playlist Link</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody2"></tbody>
-                </table>
-            </div>
-
-            <!-- K-12 Playlist Section -->
-            <div class="section-divider">
-                <div class="section-title">🎓 K-12 Playlist</div>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Playlists</div>
-                    <div class="stat-value" id="totalPlaylists3">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Views</div>
-                    <div class="stat-value" id="totalViews3">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Average Views</div>
-                    <div class="stat-value" id="avgViews3">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Top Playlist</div>
-                    <div class="stat-value" id="topPlaylist3" style="font-size: 18px;">-</div>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <div class="chart-header">
-                    <span>View Count Distribution</span>
-                </div>
-                <canvas id="barChart3"></canvas>
-            </div>
-
-            <div class="data-table">
-                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Channel Name</th>
-                            <th>View Count</th>
-                            <th>Playlist Link</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody3"></tbody>
-                </table>
-            </div>
-
-            <!-- SIQ Playlist Section -->
-            <div class="section-divider">
-                <div class="section-title">🎯 SIQ Playlist</div>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Playlists</div>
-                    <div class="stat-value" id="totalPlaylists4">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Views</div>
-                    <div class="stat-value" id="totalViews4">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Average Views</div>
-                    <div class="stat-value" id="avgViews4">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Top Playlist</div>
-                    <div class="stat-value" id="topPlaylist4" style="font-size: 18px;">-</div>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <div class="chart-header">
-                    <span>View Count Distribution</span>
-                </div>
-                <canvas id="barChart4"></canvas>
-            </div>
-
-            <div class="data-table">
-                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Channel Name</th>
-                            <th>View Count</th>
-                            <th>Playlist Link</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody4"></tbody>
-                </table>
-            </div>
-
-            <!-- Adda Paid Playlist Section -->
-            <div class="section-divider">
-                <div class="section-title">💎 Adda Paid Playlist</div>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Playlists</div>
-                    <div class="stat-value" id="totalPlaylists5">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Views</div>
-                    <div class="stat-value" id="totalViews5">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Average Views</div>
-                    <div class="stat-value" id="avgViews5">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Top Playlist</div>
-                    <div class="stat-value" id="topPlaylist5" style="font-size: 18px;">-</div>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <div class="chart-header">
-                    <span>View Count Distribution</span>
-                </div>
-                <canvas id="barChart5"></canvas>
-            </div>
-
-            <div class="data-table">
-                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Channel Name</th>
-                            <th>View Count</th>
-                            <th>Playlist Link</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody5"></tbody>
-                </table>
-            </div>
-
-            <!-- Fanpage Playlist Section -->
-            <div class="section-divider">
-                <div class="section-title">🌟 Fanpage Playlist</div>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Playlists</div>
-                    <div class="stat-value" id="totalPlaylists6">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Total Views</div>
-                    <div class="stat-value" id="totalViews6">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Average Views</div>
-                    <div class="stat-value" id="avgViews6">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Top Playlist</div>
-                    <div class="stat-value" id="topPlaylist6" style="font-size: 18px;">-</div>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <div class="chart-header">
-                    <span>View Count Distribution</span>
-                </div>
-                <canvas id="barChart6"></canvas>
-            </div>
-
-            <div class="data-table">
-                <h2 style="color: #1e293b; margin-bottom: 20px;">Playlist Details</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Channel Name</th>
-                            <th>View Count</th>
-                            <th>Playlist Link</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody6"></tbody>
-                </table>
             </div>
 
             <div class="last-updated" id="lastUpdated"></div>
@@ -654,9 +760,7 @@
     </div>
 
     <script>
-        // Google Sheets Configuration
         const SHEET_ID = '1abdf5Fc6lxGV7fAHENdo2GIf3rPwUlZ93bTs4buWSis';
-        
         const SHEETS = [
             { gid: '439811275', name: 'Combined Playlist', index: 1 },
             { gid: '0', name: 'Test Prep Playlist', index: 2 },
@@ -668,6 +772,25 @@
 
         let charts = {};
         let verticalTotalViews = {};
+        let autoRefreshInterval;
+        const REFRESH_INTERVAL = 6 * 1000;
+        let isFirstLoad = true;
+
+        function checkVerticalSelection() {
+            return false;
+        }
+
+        function selectVertical(index, name) {
+            fetchAllData();
+        }
+
+        function skipVerticalSelection() {
+            fetchAllData();
+        }
+
+        function highlightSelectedVertical() {
+            return;
+        }
 
         function getSheetURL(gid) {
             return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
@@ -676,11 +799,8 @@
         function formatNumber(num) {
             if (!num) return '0';
             const number = parseInt(num);
-            if (number >= 1000000) {
-                return (number / 1000000).toFixed(1) + 'M';
-            } else if (number >= 1000) {
-                return (number / 1000).toFixed(1) + 'K';
-            }
+            if (number >= 1000000) return (number / 1000000).toFixed(1) + 'M';
+            else if (number >= 1000) return (number / 1000).toFixed(1) + 'K';
             return number.toLocaleString();
         }
 
@@ -690,29 +810,24 @@
             errorDiv.style.display = 'block';
         }
 
+        function getRankEmoji(rank) {
+            if (rank === 1) return '🥇';
+            if (rank === 2) return '🥈';
+            if (rank === 3) return '🥉';
+            return '';
+        }
+
         async function fetchSheetData(sheet) {
             const sheetURL = getSheetURL(sheet.gid);
-            console.log(`Fetching ${sheet.name} from:`, sheetURL);
-            
             const response = await fetch(sheetURL);
-
-            if (!response.ok) {
-                throw new Error(`Failed to fetch ${sheet.name}: ${response.status}`);
-            }
-
+            if (!response.ok) throw new Error(`Failed to fetch ${sheet.name}: ${response.status}`);
             const csvText = await response.text();
-            
             return new Promise((resolve, reject) => {
                 Papa.parse(csvText, {
                     header: true,
                     skipEmptyLines: true,
-                    complete: function(results) {
-                        console.log(`Parsed ${sheet.name}:`, results.data);
-                        resolve(results.data);
-                    },
-                    error: function(error) {
-                        reject(new Error(`CSV parsing error for ${sheet.name}: ${error.message}`));
-                    }
+                    complete: function(results) { resolve(results.data); },
+                    error: function(error) { reject(new Error(`CSV parsing error for ${sheet.name}: ${error.message}`)); }
                 });
             });
         }
@@ -720,49 +835,34 @@
         async function fetchAllData() {
             const loadingDiv = document.getElementById('loading');
             const dashboardContent = document.getElementById('dashboardContent');
-            const refreshBtn = document.getElementById('refreshAllBtn');
             const errorDiv = document.getElementById('error');
-
-            loadingDiv.style.display = 'block';
-            dashboardContent.style.display = 'none';
-            errorDiv.style.display = 'none';
-            if (refreshBtn) refreshBtn.disabled = true;
-
+            if (isFirstLoad) {
+                loadingDiv.style.display = 'block';
+                dashboardContent.style.display = 'none';
+                errorDiv.style.display = 'none';
+            }
             try {
-                // Fetch all sheets in parallel
                 const allDataPromises = SHEETS.map(sheet => fetchSheetData(sheet));
                 const allData = await Promise.all(allDataPromises);
-
-                // Display each sheet's data
-                SHEETS.forEach((sheet, idx) => {
-                    displayDashboard(allData[idx], sheet.index);
-                });
-
-                // Update vertical overview cards
+                SHEETS.forEach((sheet, idx) => { displayDashboard(allData[idx], sheet.index); });
                 updateVerticalOverview();
-
-                loadingDiv.style.display = 'none';
-                dashboardContent.style.display = 'block';
-                
-                // Update last updated time
-                document.getElementById('lastUpdated').textContent = 
-                    `Last updated: ${new Date().toLocaleString()} | All playlists loaded successfully`;
-
+                if (isFirstLoad) {
+                    loadingDiv.style.display = 'none';
+                    dashboardContent.style.display = 'block';
+                    isFirstLoad = false;
+                }
+                const now = new Date();
+                document.getElementById('lastUpdated').textContent = `Last updated: ${now.toLocaleString()}`;
             } catch (error) {
-                console.error('Error details:', error);
-                loadingDiv.style.display = 'none';
-                
-                let errorMessage = `<strong>Error Loading Data:</strong><br><br>${error.message}<br><br>
-                    Please ensure the Google Sheet is published as CSV.`;
-                
-                showError(errorMessage);
-            } finally {
-                if (refreshBtn) refreshBtn.disabled = false;
+                if (isFirstLoad) {
+                    loadingDiv.style.display = 'none';
+                    let errorMessage = `<strong>Error Loading Data:</strong><br><br>${error.message}<br><br>Please ensure the Google Sheet is published as CSV.`;
+                    showError(errorMessage);
+                }
             }
         }
 
         function updateVerticalOverview() {
-            // Update the vertical overview cards with total views
             document.getElementById('verticalViews2').textContent = formatNumber(verticalTotalViews[2] || 0);
             document.getElementById('verticalViews3').textContent = formatNumber(verticalTotalViews[3] || 0);
             document.getElementById('verticalViews4').textContent = formatNumber(verticalTotalViews[4] || 0);
@@ -771,37 +871,18 @@
         }
 
         function displayDashboard(data, index) {
-            console.log(`Displaying dashboard ${index} with data:`, data);
-
-            // Filter out any invalid entries
             const validData = data.filter(item => {
                 const channelName = item['Channel Name'] || item.channelName || item['channel_name'] || item['Channel name'];
                 const viewCount = item['View Counts'] || item['View Count'] || item.viewCount || item['view_count'] || item.viewCounts;
                 const playlistLink = item['Playlist Link'] || item.playlistLink || item['playlist_link'] || item['Playlist link'];
-                
-                return channelName && 
-                       channelName.trim() !== '' && 
-                       viewCount && 
-                       String(viewCount).trim() !== '' && 
-                       !isNaN(parseInt(String(viewCount).replace(/,/g, ''))) &&
-                       playlistLink &&
-                       playlistLink.trim() !== '' &&
-                       playlistLink.toLowerCase() !== 'total';
+                return channelName && channelName.trim() !== '' && viewCount && String(viewCount).trim() !== '' && !isNaN(parseInt(String(viewCount).replace(/,/g, ''))) && playlistLink && playlistLink.trim() !== '' && playlistLink.toLowerCase() !== 'total';
             });
-
-            if (validData.length === 0) {
-                console.log(`No valid data for playlist ${index}`);
-                return;
-            }
-
-            // Sort data by view count (descending)
+            if (validData.length === 0) return;
             const sortedData = validData.sort((a, b) => {
                 const viewsA = parseInt(String(a['View Counts'] || a['View Count'] || a.viewCount || a['view_count'] || a.viewCounts || 0).replace(/,/g, ''));
                 const viewsB = parseInt(String(b['View Counts'] || b['View Count'] || b.viewCount || b['view_count'] || b.viewCounts || 0).replace(/,/g, ''));
                 return viewsB - viewsA;
             });
-
-            // Calculate statistics
             const totalPlaylists = sortedData.length;
             const totalViews = sortedData.reduce((sum, item) => {
                 const views = parseInt(String(item['View Counts'] || item['View Count'] || item.viewCount || item['view_count'] || item.viewCounts || 0).replace(/,/g, ''));
@@ -809,30 +890,15 @@
             }, 0);
             const avgViews = Math.round(totalViews / totalPlaylists);
             const topPlaylist = sortedData[0]?.['Channel Name'] || sortedData[0]?.channelName || sortedData[0]?.['channel_name'] || '-';
-
-            // Store total views for vertical overview (indices 2-6 are Test Prep, K-12, SIQ, Adda Paid, Fanpage)
-            if (index >= 2 && index <= 6) {
-                verticalTotalViews[index] = totalViews;
-            }
-
-            // Update stats
+            if (index >= 2 && index <= 6) verticalTotalViews[index] = totalViews;
             document.getElementById(`totalPlaylists${index}`).textContent = totalPlaylists;
             document.getElementById(`totalViews${index}`).textContent = formatNumber(totalViews);
             document.getElementById(`avgViews${index}`).textContent = formatNumber(avgViews);
             document.getElementById(`topPlaylist${index}`).textContent = topPlaylist;
-
-            // Prepare chart data
-            const labels = sortedData.map(item => 
-                item['Channel Name'] || item.channelName || item['channel_name'] || 'Unknown'
-            );
-            const viewCounts = sortedData.map(item => 
-                parseInt(String(item['View Counts'] || item['View Count'] || item.viewCount || item['view_count'] || item.viewCounts || 0).replace(/,/g, ''))
-            );
-
-            // Create bar chart
+            const labels = sortedData.map(item => item['Channel Name'] || item.channelName || item['channel_name'] || 'Unknown');
+            const viewCounts = sortedData.map(item => parseInt(String(item['View Counts'] || item['View Count'] || item.viewCount || item['view_count'] || item.viewCounts || 0).replace(/,/g, '')));
             const barCtx = document.getElementById(`barChart${index}`).getContext('2d');
             if (charts[`chart${index}`]) charts[`chart${index}`].destroy();
-            
             charts[`chart${index}`] = new Chart(barCtx, {
                 type: 'bar',
                 data: {
@@ -850,58 +916,34 @@
                     responsive: true,
                     maintainAspectRatio: true,
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
-                                    return 'Views: ' + context.parsed.y.toLocaleString();
-                                }
+                                label: function(context) { return 'Views: ' + context.parsed.y.toLocaleString(); }
                             }
                         }
                     },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return formatNumber(value);
-                                }
-                            }
+                            ticks: { callback: function(value) { return formatNumber(value); } }
                         },
-                        x: {
-                            ticks: {
-                                maxRotation: 45,
-                                minRotation: 45
-                            }
-                        }
+                        x: { ticks: { maxRotation: 45, minRotation: 45 } }
                     }
                 }
             });
-
-            // Populate table
             const tableBody = document.getElementById(`tableBody${index}`);
             tableBody.innerHTML = sortedData.map((item, idx) => {
                 const channelName = item['Channel Name'] || item.channelName || item['channel_name'] || 'Unknown';
                 const viewCount = parseInt(String(item['View Counts'] || item['View Count'] || item.viewCount || item['view_count'] || item.viewCounts || 0).replace(/,/g, ''));
                 const playlistLink = item['Playlist Link'] || item.playlistLink || item['playlist_link'] || item.link || '#';
-                
-                return `
-                    <tr>
-                        <td><strong>${idx + 1}</strong></td>
-                        <td>${channelName}</td>
-                        <td><strong>${formatNumber(viewCount)}</strong></td>
-                        <td><a href="${playlistLink}" target="_blank" class="playlist-link">View Playlist →</a></td>
-                    </tr>
-                `;
+                const rank = idx + 1;
+                const rankEmoji = getRankEmoji(rank);
+                return `<tr><td><span class="rank-medal">${rankEmoji}</span><strong>${rank}</strong></td><td>${channelName}</td><td><strong>${formatNumber(viewCount)}</strong></td><td><a href="${playlistLink}" target="_blank" class="playlist-link">View Playlist →</a></td></tr>`;
             }).join('');
         }
 
-        // Auto-refresh every 5 minutes
-        setInterval(fetchAllData, 5 * 60 * 1000);
-
-        // Initial load
+        autoRefreshInterval = setInterval(fetchAllData, REFRESH_INTERVAL);
         fetchAllData();
     </script>
 </body>
