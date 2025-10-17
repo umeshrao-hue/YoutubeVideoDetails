@@ -367,7 +367,7 @@
                         <div class="vertical-views" id="verticalViews5">0</div>
                     </div>
                     <div class="vertical-card">
-                        <div class="vertical-name">🌟 Fanbase</div>
+                        <div class="vertical-name">🌟 Fanpage</div>
                         <div class="vertical-views" id="verticalViews6">0</div>
                     </div>
                 </div>
@@ -603,9 +603,9 @@
                 </table>
             </div>
 
-            <!-- Fanbase Playlist Section -->
+            <!-- Fanpage Playlist Section -->
             <div class="section-divider">
-                <div class="section-title">🌟 Fanbase Playlist</div>
+                <div class="section-title">🌟 Fanpage Playlist</div>
             </div>
 
             <div class="stats-grid">
@@ -663,7 +663,7 @@
             { gid: '330049017', name: 'K-12 Playlist', index: 3 },
             { gid: '523001156', name: 'SIQ Playlist', index: 4 },
             { gid: '1431804044', name: 'Adda Paid Playlist', index: 5 },
-            { gid: '454705131', name: 'Fanbase Playlist', index: 6 }
+            { gid: '454705131', name: 'Fanpage Playlist', index: 6 }
         ];
 
         let charts = {};
@@ -810,7 +810,7 @@
             const avgViews = Math.round(totalViews / totalPlaylists);
             const topPlaylist = sortedData[0]?.['Channel Name'] || sortedData[0]?.channelName || sortedData[0]?.['channel_name'] || '-';
 
-            // Store total views for vertical overview (indices 2-6 are Test Prep, K-12, SIQ, Adda Paid, Fanbase)
+            // Store total views for vertical overview (indices 2-6 are Test Prep, K-12, SIQ, Adda Paid, Fanpage)
             if (index >= 2 && index <= 6) {
                 verticalTotalViews[index] = totalViews;
             }
