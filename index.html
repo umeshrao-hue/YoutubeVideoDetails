@@ -61,12 +61,6 @@
             color: #6b7280;
         }
 
-        .header-controls {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
         .time-selector {
             display: flex;
             align-items: center;
@@ -75,28 +69,8 @@
             background: #f9fafb;
             border: 1px solid #e5e7eb;
             border-radius: 8px;
-            cursor: pointer;
             color: #4b5563;
             font-size: 14px;
-        }
-
-        .refresh-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .refresh-btn:hover {
-            background: #5568d3;
         }
 
         .dashboard-container {
@@ -324,20 +298,6 @@
             height: 350px;
         }
 
-        .chart-labels {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 12px;
-            padding: 0 20px;
-        }
-
-        .chart-label {
-            font-size: 12px;
-            color: #6b7280;
-            transform: rotate(-45deg);
-            white-space: nowrap;
-        }
-
         .table-section {
             margin-top: 48px;
         }
@@ -468,11 +428,6 @@
             color: #667eea;
         }
 
-        .nav-arrow.disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-
         @media (max-width: 1024px) {
             .stats-row {
                 grid-template-columns: repeat(2, 1fr);
@@ -518,9 +473,7 @@
         <div class="logo-section">
             <div class="logo-icon">
                 <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Adda in Red -->
                     <text x="10" y="55" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="#E31E24">Adda</text>
-                    <!-- Education in Black -->
                     <text x="10" y="85" font-family="Arial, sans-serif" font-size="28" font-weight="normal" fill="#2D2D2D">Education</text>
                 </svg>
             </div>
@@ -528,17 +481,6 @@
                 <h1>Analytics Dashboard</h1>
                 <p>Comprehensive playlist insights</p>
             </div>
-        </div>
-        <div class="header-controls">
-            <div class="time-selector">
-                <span>📅</span>
-                <span>Last 30 Days</span>
-                <span>▼</span>
-            </div>
-            <button class="refresh-btn" onclick="fetchAllData()">
-                <span>🔄</span>
-                <span>Refresh</span>
-            </button>
         </div>
     </div>
 
@@ -720,7 +662,7 @@
         let allSheetsData = {};
         let verticalTotalViews = {};
         let currentVertical = 1;
-        const REFRESH_INTERVAL = 60000;
+        const REFRESH_INTERVAL = 6000; // Auto-refresh every 6 seconds
         let isFirstLoad = true;
 
         function getSheetURL(gid) {
@@ -944,7 +886,10 @@
             });
         }
 
+        // Start auto-refresh every 6 seconds
         setInterval(fetchAllData, REFRESH_INTERVAL);
+        
+        // Initial data load
         fetchAllData();
     </script>
 </body>
