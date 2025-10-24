@@ -28,6 +28,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .logo-section {
@@ -61,10 +65,44 @@
             color: #6b7280;
         }
 
+        .platform-toggle {
+            display: flex;
+            gap: 8px;
+            background: #f3f4f6;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .platform-btn {
+            padding: 10px 24px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .platform-btn.active {
+            background: white;
+            color: #1a1a1a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .platform-icon {
+            font-size: 18px;
+        }
+
         .dashboard-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 30px 40px;
+            padding-top: 120px;
         }
 
         .section-header {
@@ -115,6 +153,16 @@
             background: #f0f4ff;
         }
 
+        .vertical-card.instagram:hover {
+            border-color: #e1306c;
+            box-shadow: 0 4px 12px rgba(225, 48, 108, 0.1);
+        }
+
+        .vertical-card.instagram.selected {
+            border-color: #e1306c;
+            background: linear-gradient(135deg, #fef5f8 0%, #fef9fb 100%);
+        }
+
         .vertical-icon {
             width: 48px;
             height: 48px;
@@ -134,6 +182,12 @@
         .vertical-icon.violet { background: #a855f7; }
         .vertical-icon.yellow { background: #f59e0b; }
         .vertical-icon.pink { background: #ec4899; }
+        .vertical-icon.instagram { background: linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); }
+        .vertical-icon.orange { background: #f97316; }
+        .vertical-icon.red { background: #ef4444; }
+        .vertical-icon.teal { background: #14b8a6; }
+        .vertical-icon.indigo { background: #6366f1; }
+        .vertical-icon.cyan { background: #06b6d4; }
 
         .vertical-name {
             font-size: 14px;
@@ -234,6 +288,7 @@
         .stat-value.green { color: #10b981; }
         .stat-value.purple { color: #8b5cf6; }
         .stat-value.orange { color: #f59e0b; }
+        .stat-value.pink { color: #e1306c; }
 
         .stat-label {
             font-size: 14px;
@@ -271,6 +326,10 @@
             height: 10px;
             background: #3b82f6;
             border-radius: 50%;
+        }
+
+        .legend-dot.instagram {
+            background: linear-gradient(135deg, #833ab4, #e1306c);
         }
 
         .chart-wrapper {
@@ -372,6 +431,14 @@
             color: #5568d3;
         }
 
+        .instagram-link {
+            color: #e1306c;
+        }
+
+        .instagram-link:hover {
+            color: #c13584;
+        }
+
         .loading {
             text-align: center;
             padding: 60px 20px;
@@ -389,12 +456,45 @@
         }
 
         .error {
-            background: #fee;
-            color: #c00;
+            background: #fee2e2;
+            color: #991b1b;
             padding: 20px;
             border-radius: 12px;
             margin: 20px;
             display: none;
+            border: 1px solid #fecaca;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .error-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .error-message {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .error-instructions {
+            margin-top: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .error-instructions ol {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .error-instructions li {
+            margin-bottom: 8px;
         }
 
         @keyframes spin {
@@ -427,6 +527,14 @@
             color: #667eea;
         }
 
+        .platform-content {
+            display: none;
+        }
+
+        .platform-content.active {
+            display: block;
+        }
+
         @media (max-width: 1024px) {
             .stats-row {
                 grid-template-columns: repeat(2, 1fr);
@@ -443,6 +551,22 @@
                 padding: 16px 20px;
                 flex-direction: column;
                 gap: 16px;
+                align-items: stretch;
+            }
+
+            .logo-section {
+                justify-content: center;
+            }
+
+            .platform-toggle {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .platform-btn {
+                flex: 1;
+                justify-content: center;
+                padding: 12px 16px;
             }
 
             .logo-icon {
@@ -460,14 +584,11 @@
 
             .dashboard-container {
                 padding: 20px;
+                padding-top: 140px;
             }
 
             .section-title {
                 font-size: 22px;
-            }
-
-            .info-text {
-                font-size: 12px;
             }
 
             .verticals-grid {
@@ -555,21 +676,40 @@
             }
 
             table {
-                min-width: 600px;
+                min-width: 100%;
+                font-size: 13px;
             }
 
             th {
-                padding: 12px 16px;
-                font-size: 11px;
+                padding: 12px;
+                font-size: 10px;
             }
 
             td {
-                padding: 16px;
+                padding: 14px 12px;
                 font-size: 13px;
+            }
+
+            .rank-cell {
+                white-space: nowrap;
+            }
+
+            .rank-medal {
+                font-size: 16px;
             }
         }
 
         @media (max-width: 480px) {
+            .platform-toggle {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .platform-btn {
+                width: 100%;
+                padding: 14px 16px;
+            }
+
             .verticals-grid {
                 grid-template-columns: 1fr;
             }
@@ -583,12 +723,42 @@
                 font-size: 32px;
             }
 
+            .info-text {
+                font-size: 12px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .chart-title {
+                font-size: 16px;
+            }
+
+            .chart-legend {
+                font-size: 12px;
+            }
+
             th {
-                padding: 10px 12px;
+                padding: 10px 8px;
+                font-size: 9px;
             }
 
             td {
-                padding: 14px 12px;
+                padding: 12px 8px;
+                font-size: 12px;
+            }
+
+            .playlist-link {
+                font-size: 12px;
+            }
+
+            .nav-arrow {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
             }
         }
     </style>
@@ -604,8 +774,18 @@
             </div>
             <div class="logo-text">
                 <h1>Analytics Dashboard</h1>
-                <p>Comprehensive playlist insights</p>
+                <p>YouTube & Instagram insights</p>
             </div>
+        </div>
+        <div class="platform-toggle">
+            <button class="platform-btn active" onclick="switchPlatform('youtube')">
+                <span class="platform-icon">▶️</span>
+                <span>YouTube</span>
+            </button>
+            <button class="platform-btn" onclick="switchPlatform('instagram')">
+                <span class="platform-icon">📷</span>
+                <span>Instagram</span>
+            </button>
         </div>
     </div>
 
@@ -615,123 +795,475 @@
             <p>Loading analytics data...</p>
         </div>
 
-        <div id="error" class="error"></div>
+        <div id="error" class="error">
+            <div class="error-title">⚠️ Unable to Load Instagram Data</div>
+            <div class="error-message">
+                The Instagram Google Sheet is not publicly accessible. Please make it public to view the data.
+            </div>
+            <div class="error-instructions">
+                <strong>To fix this:</strong>
+                <ol>
+                    <li>Open your Instagram Google Sheet: <a href="https://docs.google.com/spreadsheets/d/1fLpsJRsnZZV-20-Nb18BnASHGKURpVSFNylMRQVHSag" target="_blank">Click here</a></li>
+                    <li>Click the <strong>"Share"</strong> button in the top-right corner</li>
+                    <li>Click <strong>"Change to anyone with the link"</strong></li>
+                    <li>Set permission to <strong>"Viewer"</strong></li>
+                    <li>Click <strong>"Done"</strong></li>
+                    <li>Refresh this page</li>
+                </ol>
+            </div>
+        </div>
 
         <div id="dashboardContent" style="display: none;">
-            <div class="section-header">
-                <h2 class="section-title">Verticals Overview</h2>
-                <div class="info-text">
-                    <span>ℹ️</span>
-                    <span>Total views across all categories</span>
+            <!-- YouTube Content -->
+            <div id="youtubeContent" class="platform-content active">
+                <div class="section-header">
+                    <h2 class="section-title">YouTube Verticals Overview</h2>
+                    <div class="info-text">
+                        <span>ℹ️</span>
+                        <span>Total views across all categories</span>
+                    </div>
                 </div>
+
+                <div class="verticals-grid" id="youtubeVerticals"></div>
+
+                <div class="overview-section" id="youtubeOverview"></div>
             </div>
 
-            <div class="verticals-grid">
-                <div class="vertical-card selected" data-vertical="1" onclick="switchVertical(1)">
-                    <div class="vertical-icon purple">C</div>
-                    <div class="trend-indicator">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+            <!-- Instagram Content -->
+            <div id="instagramContent" class="platform-content">
+                <div class="section-header">
+                    <h2 class="section-title">Instagram Channels Overview</h2>
+                    <div class="info-text">
+                        <span>ℹ️</span>
+                        <span>Total views across all channels</span>
                     </div>
-                    <div class="vertical-name">Combined Overview</div>
-                    <div class="vertical-views" id="verticalViews1">0</div>
-                    <div class="vertical-label">total views</div>
                 </div>
 
-                <div class="vertical-card" data-vertical="2" onclick="switchVertical(2)">
-                    <div class="vertical-icon blue">T</div>
-                    <div class="trend-indicator">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="vertical-name">Test Prep</div>
-                    <div class="vertical-views" id="verticalViews2">0</div>
-                    <div class="vertical-label">total views</div>
-                </div>
+                <div class="verticals-grid" id="instagramVerticals"></div>
 
-                <div class="vertical-card" data-vertical="3" onclick="switchVertical(3)">
-                    <div class="vertical-icon green">K</div>
-                    <div class="trend-indicator">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="vertical-name">K-12</div>
-                    <div class="vertical-views" id="verticalViews3">0</div>
-                    <div class="vertical-label">total views</div>
-                </div>
-
-                <div class="vertical-card" data-vertical="4" onclick="switchVertical(4)">
-                    <div class="vertical-icon violet">S</div>
-                    <div class="trend-indicator">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="vertical-name">SIQ</div>
-                    <div class="vertical-views" id="verticalViews4">0</div>
-                    <div class="vertical-label">total views</div>
-                </div>
-
-                <div class="vertical-card" data-vertical="5" onclick="switchVertical(5)">
-                    <div class="vertical-icon yellow">A</div>
-                    <div class="trend-indicator">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="vertical-name">Adda Paid</div>
-                    <div class="vertical-views" id="verticalViews5">0</div>
-                    <div class="vertical-label">total views</div>
-                </div>
-
-                <div class="vertical-card" data-vertical="6" onclick="switchVertical(6)">
-                    <div class="vertical-icon pink">F</div>
-                    <div class="trend-indicator">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="vertical-name">Fanpage</div>
-                    <div class="vertical-views" id="verticalViews6">0</div>
-                    <div class="vertical-label">total views</div>
-                </div>
+                <div class="overview-section" id="instagramOverview"></div>
             </div>
+        </div>
+    </div>
 
-            <div class="overview-section">
+    <script>
+        // YouTube Configuration
+        const YOUTUBE_SHEET_ID = '1abdf5Fc6lxGV7fAHENdo2GIf3rPwUlZ93bTs4buWSis';
+        const YOUTUBE_SHEETS = [
+            { gid: '439811275', name: 'Combined Playlist', index: 1, title: 'Combined Overview', subtitle: 'All playlists combined analytics', mainTitle: 'All Playlists Combined' },
+            { gid: '0', name: 'Test Prep Playlist', index: 2, title: 'Test Prep', subtitle: 'Test preparation content analytics', mainTitle: 'Test Prep Playlists' },
+            { gid: '330049017', name: 'K-12 Playlist', index: 3, title: 'K-12', subtitle: 'K-12 education content analytics', mainTitle: 'K-12 Playlists' },
+            { gid: '523001156', name: 'SIQ Playlist', index: 4, title: 'SIQ', subtitle: 'SIQ content analytics', mainTitle: 'SIQ Playlists' },
+            { gid: '1431804044', name: 'Adda Paid Playlist', index: 5, title: 'Adda Paid', subtitle: 'Premium content analytics', mainTitle: 'Adda Paid Playlists' },
+            { gid: '454705131', name: 'Fanpage Playlist', index: 6, title: 'Fanpage', subtitle: 'Fanpage content analytics', mainTitle: 'Fanpage Playlists' }
+        ];
+
+        // Instagram Configuration
+        const INSTAGRAM_SHEET_ID = '1fLpsJRsnZZV-20-Nb18BnASHGKURpVSFNylMRQVHSag';
+        const INSTAGRAM_SHEETS = [
+            { gid: '913197130', name: 'Combined', index: 1, title: 'All Channels', subtitle: 'Combined Instagram analytics', mainTitle: 'All Instagram Channels', icon: 'C', color: 'instagram' },
+            { gid: '1430141468', name: 'SSC', index: 2, title: 'SSC Adda', subtitle: 'SSC Instagram analytics', mainTitle: 'SSC Channel', icon: 'S', color: 'blue' },
+            { gid: '143263580', name: 'Banking', index: 3, title: 'Banking Adda', subtitle: 'Banking Instagram analytics', mainTitle: 'Banking Channel', icon: 'B', color: 'green' },
+            { gid: '1202083233', name: 'Punjab', index: 4, title: 'Punjab Adda', subtitle: 'Punjab Instagram analytics', mainTitle: 'Punjab Channel', icon: 'P', color: 'orange' },
+            { gid: '1503494185', name: 'Bihar', index: 5, title: 'Bihar Adda', subtitle: 'Bihar Instagram analytics', mainTitle: 'Bihar Channel', icon: 'Bh', color: 'red' },
+            { gid: '909768194', name: 'Agriculture', index: 6, title: 'Agriculture Adda', subtitle: 'Agriculture Instagram analytics', mainTitle: 'Agriculture Channel', icon: 'A', color: 'teal' },
+            { gid: '1004450874', name: 'Additional', index: 7, title: 'Additional Pages', subtitle: 'Other Instagram channels', mainTitle: 'Additional Channels', icon: '+', color: 'indigo' }
+        ];
+
+        let currentPlatform = 'youtube';
+        let youtubeData = {};
+        let instagramData = {};
+        let youtubeVerticalViews = {};
+        let instagramVerticalViews = {};
+        let currentYoutubeVertical = 1;
+        let currentInstagramVertical = 1;
+        let youtubeChart, instagramChart;
+        let isFirstLoad = true;
+        let instagramLoadFailed = false;
+        const REFRESH_INTERVAL = 60000;
+
+        function switchPlatform(platform) {
+            currentPlatform = platform;
+            
+            // Update button states
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.platform-btn').classList.add('active');
+            
+            // Update content visibility
+            document.querySelectorAll('.platform-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(platform + 'Content').classList.add('active');
+            
+            // Scroll to top of page
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function formatNumber(num) {
+            if (!num) return '0';
+            const number = parseInt(num);
+            if (number >= 1000000) return (number / 1000000).toFixed(1) + 'M';
+            else if (number >= 1000) return (number / 1000).toFixed(1) + 'K';
+            return number.toLocaleString();
+        }
+
+        function getRankEmoji(rank) {
+            if (rank === 1) return '🥇';
+            if (rank === 2) return '🥈';
+            if (rank === 3) return '🥉';
+            return '';
+        }
+
+        function getSheetURL(sheetId, gid) {
+            return `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
+        }
+
+        async function fetchSheetData(sheetId, gid) {
+            const url = getSheetURL(sheetId, gid);
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch sheet (Status: ${response.status})`);
+            }
+            const csvText = await response.text();
+            
+            // Check if we got a login page instead of CSV
+            if (csvText.includes('accounts.google.com') || csvText.includes('ServiceLogin')) {
+                throw new Error('Sheet is not publicly accessible');
+            }
+            
+            return new Promise((resolve, reject) => {
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: (results) => resolve(results.data),
+                    error: (error) => reject(error)
+                });
+            });
+        }
+
+        async function fetchAllData() {
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            
+            if (isFirstLoad) {
+                loadingDiv.style.display = 'block';
+                errorDiv.classList.remove('show');
+            }
+
+            try {
+                // Fetch YouTube data
+                const youtubePromises = YOUTUBE_SHEETS.map(sheet => 
+                    fetchSheetData(YOUTUBE_SHEET_ID, sheet.gid)
+                );
+                const youtubeResults = await Promise.all(youtubePromises);
+                
+                YOUTUBE_SHEETS.forEach((sheet, idx) => {
+                    youtubeData[sheet.index] = processYouTubeData(youtubeResults[idx]);
+                    youtubeVerticalViews[sheet.index] = youtubeData[sheet.index].totalViews;
+                });
+
+                // Try to fetch Instagram data
+                try {
+                    const instagramPromises = INSTAGRAM_SHEETS.map(sheet => 
+                        fetchSheetData(INSTAGRAM_SHEET_ID, sheet.gid)
+                    );
+                    const instagramResults = await Promise.all(instagramPromises);
+                    
+                    INSTAGRAM_SHEETS.forEach((sheet, idx) => {
+                        instagramData[sheet.index] = processInstagramData(instagramResults[idx]);
+                        instagramVerticalViews[sheet.index] = instagramData[sheet.index].totalViews;
+                    });
+                    
+                    instagramLoadFailed = false;
+                    renderInstagramVerticals();
+                    displayInstagramVertical(currentInstagramVertical);
+                } catch (instagramError) {
+                    console.error('Instagram data fetch failed:', instagramError);
+                    instagramLoadFailed = true;
+                    if (isFirstLoad) {
+                        errorDiv.classList.add('show');
+                    }
+                }
+
+                renderYouTubeVerticals();
+                displayYouTubeVertical(currentYoutubeVertical);
+                
+                if (isFirstLoad) {
+                    loadingDiv.style.display = 'none';
+                    document.getElementById('dashboardContent').style.display = 'block';
+                    isFirstLoad = false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                if (isFirstLoad) {
+                    loadingDiv.style.display = 'none';
+                    errorDiv.innerHTML = `
+                        <div class="error-title">⚠️ Error Loading Data</div>
+                        <div class="error-message">${error.message}</div>
+                    `;
+                    errorDiv.classList.add('show');
+                }
+            }
+        }
+
+        function processYouTubeData(data) {
+            const validData = data.filter(item => {
+                const channelName = item['Channel Name'] || item.channelName || '';
+                const viewCount = item['View Counts'] || item['View Count'] || 0;
+                return channelName.trim() !== '' && !isNaN(parseInt(String(viewCount).replace(/,/g, '')));
+            });
+
+            const sortedData = validData.sort((a, b) => {
+                const viewsA = parseInt(String(a['View Counts'] || a['View Count'] || 0).replace(/,/g, ''));
+                const viewsB = parseInt(String(b['View Counts'] || b['View Count'] || 0).replace(/,/g, ''));
+                return viewsB - viewsA;
+            });
+
+            const totalViews = sortedData.reduce((sum, item) => {
+                return sum + parseInt(String(item['View Counts'] || item['View Count'] || 0).replace(/,/g, ''));
+            }, 0);
+
+            return {
+                sortedData,
+                totalPlaylists: sortedData.length,
+                totalViews,
+                avgViews: sortedData.length > 0 ? Math.round(totalViews / sortedData.length) : 0,
+                topPlaylist: sortedData[0] ? (sortedData[0]['Channel Name'] || sortedData[0].channelName || '-') : '-'
+            };
+        }
+
+        function processInstagramData(data) {
+            console.log('Raw Instagram data sample:', data.slice(0, 2));
+            
+            // First, let's see what columns we actually have
+            if (data.length > 0) {
+                console.log('Available columns:', Object.keys(data[0]));
+            }
+            
+            // Check if this is the combined format with exact column names
+            const hasCombinedFormat = data.some(item => {
+                const keys = Object.keys(item);
+                const hasChannelName = keys.some(k => k.trim() === 'Channel Name');
+                const hasViews = keys.some(k => k.trim() === 'Views');
+                return hasChannelName && hasViews;
+            });
+
+            console.log('Has combined format:', hasCombinedFormat);
+
+            if (hasCombinedFormat) {
+                // Process combined format - be very precise with column names
+                const sortedData = data
+                    .filter(item => {
+                        // Get the exact column names (might have spaces)
+                        const channelName = item['Channel Name'] || '';
+                        const views = item['Views'] || '';
+                        
+                        // Skip empty rows and total row
+                        if (!channelName || channelName.trim() === '' || channelName.toLowerCase() === 'total') {
+                            return false;
+                        }
+                        
+                        // Check if views is a valid number
+                        const viewsNum = String(views).replace(/,/g, '');
+                        return !isNaN(parseInt(viewsNum)) && parseInt(viewsNum) > 0;
+                    })
+                    .map(item => {
+                        const channel = String(item['Channel Name'] || '').trim();
+                        const viewsStr = String(item['Views'] || '0').replace(/,/g, '');
+                        const views = parseInt(viewsStr) || 0;
+                        const url = String(item['Channels url'] || '').trim();
+                        
+                        console.log('Mapped item:', { channel, views, url });
+                        return { channel, views, url };
+                    })
+                    .sort((a, b) => b.views - a.views);
+
+                const totalViews = sortedData.reduce((sum, item) => sum + item.views, 0);
+                
+                console.log('Final processed data:', {
+                    totalChannels: sortedData.length,
+                    totalViews: totalViews,
+                    sampleData: sortedData.slice(0, 3)
+                });
+
+                return {
+                    sortedData,
+                    totalChannels: sortedData.length,
+                    totalViews,
+                    avgViews: sortedData.length > 0 ? Math.round(totalViews / sortedData.length) : 0,
+                    topChannel: sortedData[0] ? sortedData[0].channel : '-'
+                };
+            }
+            
+            // Check if this is the old combined sheet format (has "Vertical" and "Total Views" columns)
+            const isCombinedFormat = data.some(item => 
+                (item['Vertical'] || item['vertical']) && 
+                (item['Total Views'] || item['total_views'] || item['TotalViews'])
+            );
+
+            if (isCombinedFormat) {
+                // Process old combined format
+                const sortedData = data
+                    .filter(item => {
+                        const vertical = item['Vertical'] || item['vertical'] || '';
+                        const views = item['Total Views'] || item['total_views'] || item['TotalViews'] || 0;
+                        return vertical.trim() !== '' && 
+                               vertical.toLowerCase() !== 'total' && 
+                               !isNaN(parseInt(String(views).replace(/,/g, '')));
+                    })
+                    .map(item => ({
+                        channel: item['Vertical'] || item['vertical'],
+                        views: parseInt(String(item['Total Views'] || item['total_views'] || item['TotalViews'] || 0).replace(/,/g, ''))
+                    }))
+                    .sort((a, b) => b.views - a.views);
+
+                const totalViews = sortedData.reduce((sum, item) => sum + item.views, 0);
+
+                return {
+                    sortedData,
+                    totalChannels: sortedData.length,
+                    totalViews,
+                    avgViews: sortedData.length > 0 ? Math.round(totalViews / sortedData.length) : 0,
+                    topChannel: sortedData[0] ? sortedData[0].channel : '-'
+                };
+            } else {
+                // Process individual post format (Owner/Username format)
+                const channelViews = {};
+                
+                data.forEach(item => {
+                    const owner = item['Owner'] || item['OwnerUsername'] || '';
+                    const views = parseInt(String(item['Views'] || 0).replace(/,/g, '')) || 0;
+                    
+                    if (owner.trim() !== '') {
+                        if (!channelViews[owner]) {
+                            channelViews[owner] = 0;
+                        }
+                        channelViews[owner] += views;
+                    }
+                });
+
+                const sortedData = Object.entries(channelViews)
+                    .map(([channel, views]) => ({ channel, views }))
+                    .sort((a, b) => b.views - a.views);
+
+                const totalViews = sortedData.reduce((sum, item) => sum + item.views, 0);
+
+                return {
+                    sortedData,
+                    totalChannels: sortedData.length,
+                    totalViews,
+                    avgViews: sortedData.length > 0 ? Math.round(totalViews / sortedData.length) : 0,
+                    topChannel: sortedData[0] ? sortedData[0].channel : '-'
+                };
+            }
+        }
+
+        function renderYouTubeVerticals() {
+            const container = document.getElementById('youtubeVerticals');
+            const icons = ['C', 'T', 'K', 'S', 'A', 'F'];
+            const colors = ['purple', 'blue', 'green', 'violet', 'yellow', 'pink'];
+            
+            container.innerHTML = YOUTUBE_SHEETS.map((sheet, idx) => `
+                <div class="vertical-card ${sheet.index === currentYoutubeVertical ? 'selected' : ''}" 
+                     data-vertical="${sheet.index}" onclick="selectYouTubeVertical(${sheet.index})">
+                    <div class="vertical-icon ${colors[idx]}">${icons[idx]}</div>
+                    <div class="trend-indicator">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="vertical-name">${sheet.title}</div>
+                    <div class="vertical-views">${formatNumber(youtubeVerticalViews[sheet.index] || 0)}</div>
+                    <div class="vertical-label">total views</div>
+                </div>
+            `).join('');
+        }
+
+        function renderInstagramVerticals() {
+            const container = document.getElementById('instagramVerticals');
+            
+            if (instagramLoadFailed) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #6b7280;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📷</div>
+                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Instagram Data Not Available</div>
+                        <div style="font-size: 14px;">Please make the Google Sheet publicly accessible to view Instagram analytics.</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = INSTAGRAM_SHEETS.map((sheet) => `
+                <div class="vertical-card instagram ${sheet.index === currentInstagramVertical ? 'selected' : ''}" 
+                     data-vertical="${sheet.index}" onclick="selectInstagramVertical(${sheet.index})">
+                    <div class="vertical-icon ${sheet.color}">${sheet.icon}</div>
+                    <div class="trend-indicator">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="vertical-name">${sheet.title}</div>
+                    <div class="vertical-views">${formatNumber(instagramVerticalViews[sheet.index] || 0)}</div>
+                    <div class="vertical-label">total views</div>
+                </div>
+            `).join('');
+        }
+
+        function selectYouTubeVertical(index) {
+            currentYoutubeVertical = index;
+            renderYouTubeVerticals();
+            displayYouTubeVertical(index);
+        }
+
+        function selectInstagramVertical(index) {
+            currentInstagramVertical = index;
+            renderInstagramVerticals();
+            displayInstagramVertical(index);
+        }
+
+        function displayYouTubeVertical(index) {
+            const sheet = YOUTUBE_SHEETS.find(s => s.index === index);
+            const data = youtubeData[index];
+            if (!sheet || !data) return;
+
+            const container = document.getElementById('youtubeOverview');
+            container.innerHTML = `
                 <div class="overview-header">
                     <div class="overview-title-section">
-                        <h3 id="currentVerticalTitle">Combined Overview</h3>
-                        <p class="overview-subtitle" id="currentVerticalSubtitle">All playlists combined analytics</p>
+                        <h3>${sheet.title}</h3>
+                        <p class="overview-subtitle">${sheet.subtitle}</p>
                     </div>
                     <div class="nav-arrows">
-                        <div class="nav-arrow" onclick="navigateVertical(-1)">←</div>
-                        <div class="nav-arrow" onclick="navigateVertical(1)">→</div>
+                        <div class="nav-arrow" onclick="navigateYouTube(-1)">←</div>
+                        <div class="nav-arrow" onclick="navigateYouTube(1)">→</div>
                     </div>
                 </div>
 
-                <p class="update-time" id="lastUpdated">Last updated: Loading...</p>
+                <p class="update-time">Last updated: ${new Date().toLocaleTimeString()}</p>
 
-                <h4 class="section-subtitle" id="mainSectionTitle">All Playlists Combined</h4>
-                <p class="section-description">Comprehensive analytics across all content verticals</p>
+                <h4 class="section-subtitle">${sheet.mainTitle}</h4>
+                <p class="section-description">Comprehensive analytics for this category</p>
 
                 <div class="stats-row">
                     <div class="stat-box">
-                        <div class="stat-value blue" id="totalPlaylists">0</div>
+                        <div class="stat-value blue">${data.totalPlaylists}</div>
                         <div class="stat-label">Total Playlists</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-value green" id="totalViews">0</div>
+                        <div class="stat-value green">${formatNumber(data.totalViews)}</div>
                         <div class="stat-label">Total Views</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-value purple" id="avgViews">0</div>
+                        <div class="stat-value purple">${formatNumber(data.avgViews)}</div>
                         <div class="stat-label">Average Views</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-value orange" id="topPerformer">-</div>
+                        <div class="stat-value orange">${data.topPlaylist}</div>
                         <div class="stat-label">Top Performer</div>
                     </div>
                 </div>
@@ -746,7 +1278,7 @@
                     </div>
                     <div class="chart-wrapper">
                         <div class="chart-container">
-                            <canvas id="mainChart"></canvas>
+                            <canvas id="youtubeChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -763,193 +1295,107 @@
                                     <th>PLAYLIST LINK</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableBody">
-                            </tbody>
+                            <tbody id="youtubeTableBody"></tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            `;
 
-    <script>
-        const SHEET_ID = '1abdf5Fc6lxGV7fAHENdo2GIf3rPwUlZ93bTs4buWSis';
-        const SHEETS = [
-            { gid: '439811275', name: 'Combined Playlist', index: 1, title: 'Combined Overview', subtitle: 'All playlists combined analytics', mainTitle: 'All Playlists Combined' },
-            { gid: '0', name: 'Test Prep Playlist', index: 2, title: 'Test Prep', subtitle: 'Test preparation content analytics', mainTitle: 'Test Prep Playlists' },
-            { gid: '330049017', name: 'K-12 Playlist', index: 3, title: 'K-12', subtitle: 'K-12 education content analytics', mainTitle: 'K-12 Playlists' },
-            { gid: '523001156', name: 'SIQ Playlist', index: 4, title: 'SIQ', subtitle: 'SIQ content analytics', mainTitle: 'SIQ Playlists' },
-            { gid: '1431804044', name: 'Adda Paid Playlist', index: 5, title: 'Adda Paid', subtitle: 'Premium content analytics', mainTitle: 'Adda Paid Playlists' },
-            { gid: '454705131', name: 'Fanpage Playlist', index: 6, title: 'Fanpage', subtitle: 'Fanpage content analytics', mainTitle: 'Fanpage Playlists' }
-        ];
-
-        let mainChart;
-        let allSheetsData = {};
-        let verticalTotalViews = {};
-        let currentVertical = 1;
-        const REFRESH_INTERVAL = 6000;
-        let isFirstLoad = true;
-
-        function getRankEmoji(rank) {
-            if (rank === 1) return '🥇';
-            if (rank === 2) return '🥈';
-            if (rank === 3) return '🥉';
-            return '';
+            updateYouTubeChart(data.sortedData);
+            updateYouTubeTable(data.sortedData);
         }
 
-        function getSheetURL(gid) {
-            return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
+        function displayInstagramVertical(index) {
+            const sheet = INSTAGRAM_SHEETS.find(s => s.index === index);
+            const data = instagramData[index];
+            if (!sheet || !data) return;
+
+            // Check if any item has URL
+            const hasUrls = data.sortedData.some(item => item.url && item.url.trim() !== '');
+
+            const container = document.getElementById('instagramOverview');
+            container.innerHTML = `
+                <div class="overview-header">
+                    <div class="overview-title-section">
+                        <h3>${sheet.title}</h3>
+                        <p class="overview-subtitle">${sheet.subtitle}</p>
+                    </div>
+                    <div class="nav-arrows">
+                        <div class="nav-arrow" onclick="navigateInstagram(-1)">←</div>
+                        <div class="nav-arrow" onclick="navigateInstagram(1)">→</div>
+                    </div>
+                </div>
+
+                <p class="update-time">Last updated: ${new Date().toLocaleTimeString()}</p>
+
+                <h4 class="section-subtitle">${sheet.mainTitle}</h4>
+                <p class="section-description">Instagram video analytics for this channel</p>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-value blue">${data.totalChannels}</div>
+                        <div class="stat-label">Total Accounts</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value pink">${formatNumber(data.totalViews)}</div>
+                        <div class="stat-label">Total Views</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value purple">${formatNumber(data.avgViews)}</div>
+                        <div class="stat-label">Average Views</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value orange">${data.topChannel}</div>
+                        <div class="stat-label">Top Performer</div>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <div class="chart-header">
+                        <h4 class="chart-title">View Count Distribution</h4>
+                        <div class="chart-legend">
+                            <div class="legend-dot instagram"></div>
+                            <span>Top 10 accounts</span>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div class="chart-container">
+                            <canvas id="instagramChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-section">
+                    <h4 class="table-header">Channel Details</h4>
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>RANK</th>
+                                    <th>ACCOUNT NAME</th>
+                                    <th>VIEW COUNT</th>
+                                    ${hasUrls ? '<th>CHANNEL LINK</th>' : ''}
+                                </tr>
+                            </thead>
+                            <tbody id="instagramTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            updateInstagramChart(data.sortedData);
+            updateInstagramTable(data.sortedData);
         }
 
-        function formatNumber(num) {
-            if (!num) return '0';
-            const number = parseInt(num);
-            if (number >= 1000000) return (number / 1000000).toFixed(1) + 'M';
-            else if (number >= 1000) return (number / 1000).toFixed(1) + 'K';
-            return number.toLocaleString();
-        }
-
-        async function fetchSheetData(sheet) {
-            const sheetURL = getSheetURL(sheet.gid);
-            const response = await fetch(sheetURL);
-            if (!response.ok) throw new Error(`Failed to fetch ${sheet.name}`);
-            const csvText = await response.text();
-            return new Promise((resolve, reject) => {
-                Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: function(results) { resolve(results.data); },
-                    error: function(error) { reject(error); }
-                });
-            });
-        }
-
-        async function fetchAllData() {
-            const loadingDiv = document.getElementById('loading');
-            const dashboardContent = document.getElementById('dashboardContent');
-            const errorDiv = document.getElementById('error');
-            
-            if (isFirstLoad) {
-                loadingDiv.style.display = 'block';
-                dashboardContent.style.display = 'none';
-                errorDiv.style.display = 'none';
-            }
-
-            try {
-                const allDataPromises = SHEETS.map(sheet => fetchSheetData(sheet));
-                const allData = await Promise.all(allDataPromises);
-                
-                SHEETS.forEach((sheet, idx) => {
-                    allSheetsData[sheet.index] = processSheetData(allData[idx]);
-                    verticalTotalViews[sheet.index] = allSheetsData[sheet.index].totalViews;
-                });
-                
-                updateVerticalOverview();
-                displayCurrentVertical();
-                
-                if (isFirstLoad) {
-                    loadingDiv.style.display = 'none';
-                    dashboardContent.style.display = 'block';
-                    isFirstLoad = false;
-                }
-                
-                const now = new Date();
-                document.getElementById('lastUpdated').textContent = `Last updated: ${now.toLocaleTimeString()}`;
-            } catch (error) {
-                if (isFirstLoad) {
-                    loadingDiv.style.display = 'none';
-                    errorDiv.textContent = 'Error loading data: ' + error.message;
-                    errorDiv.style.display = 'block';
-                }
-            }
-        }
-
-        function processSheetData(data) {
-            const validData = data.filter(item => {
-                const channelName = item['Channel Name'] || item.channelName || item['channel_name'] || '';
-                const viewCount = item['View Counts'] || item['View Count'] || item.viewCount || item['view_count'] || 0;
-                const playlistLink = item['Playlist Link'] || item.playlistLink || item['playlist_link'] || '';
-                return channelName.trim() !== '' && 
-                       !isNaN(parseInt(String(viewCount).replace(/,/g, ''))) &&
-                       playlistLink.trim() !== '';
-            });
-
-            const sortedData = validData.sort((a, b) => {
-                const viewsA = parseInt(String(a['View Counts'] || a['View Count'] || a.viewCount || 0).replace(/,/g, ''));
-                const viewsB = parseInt(String(b['View Counts'] || b['View Count'] || b.viewCount || 0).replace(/,/g, ''));
-                return viewsB - viewsA;
-            });
-
-            const totalPlaylists = sortedData.length;
-            const totalViews = sortedData.reduce((sum, item) => {
-                return sum + parseInt(String(item['View Counts'] || item['View Count'] || item.viewCount || 0).replace(/,/g, ''));
-            }, 0);
-            const avgViews = totalPlaylists > 0 ? Math.round(totalViews / totalPlaylists) : 0;
-            const topPlaylist = sortedData[0] ? (sortedData[0]['Channel Name'] || sortedData[0].channelName || '-') : '-';
-
-            return {
-                sortedData,
-                totalPlaylists,
-                totalViews,
-                avgViews,
-                topPlaylist
-            };
-        }
-
-        function updateVerticalOverview() {
-            for (let i = 1; i <= 6; i++) {
-                const views = verticalTotalViews[i] || 0;
-                document.getElementById(`verticalViews${i}`).textContent = formatNumber(views);
-            }
-        }
-
-        function switchVertical(index) {
-            currentVertical = index;
-            
-            document.querySelectorAll('.vertical-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            document.querySelector(`.vertical-card[data-vertical="${index}"]`).classList.add('selected');
-            
-            displayCurrentVertical();
-        }
-
-        function navigateVertical(direction) {
-            let newVertical = currentVertical + direction;
-            if (newVertical < 1) newVertical = 6;
-            if (newVertical > 6) newVertical = 1;
-            switchVertical(newVertical);
-        }
-
-        function displayCurrentVertical() {
-            const sheetInfo = SHEETS.find(s => s.index === currentVertical);
-            if (!sheetInfo) return;
-
-            document.getElementById('currentVerticalTitle').textContent = sheetInfo.title;
-            document.getElementById('currentVerticalSubtitle').textContent = sheetInfo.subtitle;
-            document.getElementById('mainSectionTitle').textContent = sheetInfo.mainTitle;
-
-            const data = allSheetsData[currentVertical];
-            if (!data) return;
-
-            document.getElementById('totalPlaylists').textContent = data.totalPlaylists;
-            document.getElementById('totalViews').textContent = formatNumber(data.totalViews);
-            document.getElementById('avgViews').textContent = formatNumber(data.avgViews);
-            document.getElementById('topPerformer').textContent = data.topPlaylist;
-
-            updateChart(data.sortedData);
-            updateTable(data.sortedData);
-        }
-
-        function updateChart(sortedData) {
+        function updateYouTubeChart(sortedData) {
             const top10 = sortedData.slice(0, 10);
             const labels = top10.map(item => item['Channel Name'] || item.channelName || 'Unknown');
-            const viewCounts = top10.map(item => parseInt(String(item['View Counts'] || item['View Count'] || item.viewCount || 0).replace(/,/g, '')));
+            const viewCounts = top10.map(item => parseInt(String(item['View Counts'] || item['View Count'] || 0).replace(/,/g, '')));
 
-            const ctx = document.getElementById('mainChart').getContext('2d');
-            if (mainChart) mainChart.destroy();
+            const ctx = document.getElementById('youtubeChart').getContext('2d');
+            if (youtubeChart) youtubeChart.destroy();
 
-            mainChart = new Chart(ctx, {
+            youtubeChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labels,
@@ -967,9 +1413,7 @@
                         legend: { display: false },
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
-                                    return 'Views: ' + context.parsed.y.toLocaleString();
-                                }
+                                label: (context) => 'Views: ' + context.parsed.y.toLocaleString()
                             }
                         }
                     },
@@ -978,9 +1422,7 @@
                             beginAtZero: true,
                             grid: { color: '#f3f4f6' },
                             ticks: {
-                                callback: function(value) {
-                                    return formatNumber(value);
-                                }
+                                callback: (value) => formatNumber(value)
                             }
                         },
                         x: {
@@ -996,30 +1438,112 @@
             });
         }
 
-        function updateTable(sortedData) {
-            const tableBody = document.getElementById('tableBody');
-            tableBody.innerHTML = '';
+        function updateInstagramChart(sortedData) {
+            const top10 = sortedData.slice(0, 10);
+            const labels = top10.map(item => item.channel);
+            const viewCounts = top10.map(item => item.views);
 
-            sortedData.forEach((item, index) => {
-                const rank = index + 1;
-                const rankEmoji = getRankEmoji(rank);
-                const channelName = item['Channel Name'] || item.channelName || item['channel_name'] || 'Unknown';
-                const viewCount = parseInt(String(item['View Counts'] || item['View Count'] || item.viewCount || 0).replace(/,/g, ''));
-                const playlistLink = item['Playlist Link'] || item.playlistLink || item['playlist_link'] || '#';
+            const ctx = document.getElementById('instagramChart').getContext('2d');
+            if (instagramChart) instagramChart.destroy();
 
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="rank-cell"><span class="rank-medal">${rankEmoji}</span>#${rank}</td>
-                    <td>${channelName}</td>
-                    <td class="view-count-cell">${formatNumber(viewCount)}</td>
-                    <td><a href="${playlistLink}" target="_blank" class="playlist-link">View Playlist ↗</a></td>
-                `;
-                tableBody.appendChild(row);
+            instagramChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: viewCounts,
+                        backgroundColor: '#e1306c',
+                        borderRadius: 6,
+                        barThickness: 40
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => 'Views: ' + context.parsed.y.toLocaleString()
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f3f4f6' },
+                            ticks: {
+                                callback: (value) => formatNumber(value)
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
             });
         }
 
-        setInterval(fetchAllData, REFRESH_INTERVAL);
+        function updateYouTubeTable(sortedData) {
+            const tableBody = document.getElementById('youtubeTableBody');
+            tableBody.innerHTML = sortedData.map((item, index) => {
+                const rank = index + 1;
+                const rankEmoji = getRankEmoji(rank);
+                const channelName = item['Channel Name'] || item.channelName || 'Unknown';
+                const viewCount = parseInt(String(item['View Counts'] || item['View Count'] || 0).replace(/,/g, ''));
+                const playlistLink = item['Playlist Link'] || item.playlistLink || '#';
+
+                return `
+                    <tr>
+                        <td class="rank-cell"><span class="rank-medal">${rankEmoji}</span>#${rank}</td>
+                        <td>${channelName}</td>
+                        <td class="view-count-cell">${formatNumber(viewCount)}</td>
+                        <td><a href="${playlistLink}" target="_blank" class="playlist-link">View Playlist ↗</a></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateInstagramTable(sortedData) {
+            const tableBody = document.getElementById('instagramTableBody');
+            tableBody.innerHTML = sortedData.map((item, index) => {
+                const rank = index + 1;
+                const rankEmoji = getRankEmoji(rank);
+                const hasUrl = item.url && item.url.trim() !== '';
+
+                return `
+                    <tr>
+                        <td class="rank-cell"><span class="rank-medal">${rankEmoji}</span>#${rank}</td>
+                        <td>${item.channel}</td>
+                        <td class="view-count-cell">${formatNumber(item.views)}</td>
+                        ${hasUrl ? `<td><a href="${item.url}" target="_blank" class="playlist-link instagram-link">View Channel ↗</a></td>` : ''}
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function navigateYouTube(direction) {
+            let newVertical = currentYoutubeVertical + direction;
+            if (newVertical < 1) newVertical = YOUTUBE_SHEETS.length;
+            if (newVertical > YOUTUBE_SHEETS.length) newVertical = 1;
+            selectYouTubeVertical(newVertical);
+        }
+
+        function navigateInstagram(direction) {
+            let newVertical = currentInstagramVertical + direction;
+            if (newVertical < 1) newVertical = INSTAGRAM_SHEETS.length;
+            if (newVertical > INSTAGRAM_SHEETS.length) newVertical = 1;
+            selectInstagramVertical(newVertical);
+        }
+
+        // Initialize
         fetchAllData();
+        setInterval(fetchAllData, REFRESH_INTERVAL);
     </script>
 </body>
 </html>
