@@ -778,7 +778,11 @@
             </div>
         </div>
         <div class="platform-toggle">
-            <button class="platform-btn active" onclick="switchPlatform('youtube')">
+            <button class="platform-btn active" onclick="switchPlatform('combined')">
+                <span class="platform-icon">📊</span>
+                <span>Combined</span>
+            </button>
+            <button class="platform-btn" onclick="switchPlatform('youtube')">
                 <span class="platform-icon">▶️</span>
                 <span>YouTube</span>
             </button>
@@ -814,8 +818,21 @@
         </div>
 
         <div id="dashboardContent" style="display: none;">
+            <!-- Combined Content -->
+            <div id="combinedContent" class="platform-content active">
+                <div class="section-header">
+                    <h2 class="section-title">YouTube + Instagram Combined</h2>
+                    <div class="info-text">
+                        <span>ℹ️</span>
+                        <span>Total views across all platforms</span>
+                    </div>
+                </div>
+
+                <div class="overview-section" id="combinedOverview"></div>
+            </div>
+
             <!-- YouTube Content -->
-            <div id="youtubeContent" class="platform-content active">
+            <div id="youtubeContent" class="platform-content">
                 <div class="section-header">
                     <h2 class="section-title">YouTube Verticals Overview</h2>
                     <div class="info-text">
@@ -870,7 +887,7 @@
             { gid: '1004450874', name: 'Additional', index: 7, title: 'Additional Pages', subtitle: 'Other Instagram channels', mainTitle: 'Additional Channels', icon: '+', color: 'indigo' }
         ];
 
-        let currentPlatform = 'youtube';
+        let currentPlatform = 'combined';
         let youtubeData = {};
         let instagramData = {};
         let youtubeVerticalViews = {};
@@ -998,6 +1015,9 @@
                     document.getElementById('dashboardContent').style.display = 'block';
                     isFirstLoad = false;
                 }
+                
+                // Display combined view if available
+                displayCombinedView();
             } catch (error) {
                 console.error('Error:', error);
                 if (isFirstLoad) {
@@ -1539,6 +1559,164 @@
             if (newVertical < 1) newVertical = INSTAGRAM_SHEETS.length;
             if (newVertical > INSTAGRAM_SHEETS.length) newVertical = 1;
             selectInstagramVertical(newVertical);
+        }
+
+        function displayCombinedView() {
+            // Check if we have data
+            if (Object.keys(youtubeData).length === 0 || Object.keys(instagramData).length === 0) {
+                console.log('Waiting for data to load...');
+                return;
+            }
+
+            // Only count Combined Overview (index 1) from YouTube and All Channels (index 1) from Instagram
+            const youtubeTotal = youtubeVerticalViews[1] || 0; // Combined Overview only
+            const instagramTotal = instagramVerticalViews[1] || 0; // All Channels only
+            const grandTotal = youtubeTotal + instagramTotal;
+            
+            console.log('Combined totals (Combined sheets only):', { youtubeTotal, instagramTotal, grandTotal });
+            
+            const container = document.getElementById('combinedOverview');
+            container.innerHTML = `
+                <div class="overview-header">
+                    <div class="overview-title-section">
+                        <h3>Overall Platform Analytics</h3>
+                        <p class="overview-subtitle">YouTube + Instagram combined performance</p>
+                    </div>
+                </div>
+
+                <p class="update-time">Last updated: ${new Date().toLocaleTimeString()}</p>
+
+                <h4 class="section-subtitle">Total Reach Across All Platforms</h4>
+                <p class="section-description">Combined views from YouTube Combined Overview and Instagram All Channels</p>
+
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-value blue">${formatNumber(grandTotal)}</div>
+                        <div class="stat-label">Total Views (All Platforms)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value green">${formatNumber(youtubeTotal)}</div>
+                        <div class="stat-label">YouTube Views</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value pink">${formatNumber(instagramTotal)}</div>
+                        <div class="stat-label">Instagram Views</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value purple">${grandTotal > 0 ? Math.round((youtubeTotal / grandTotal) * 100) : 0}%</div>
+                        <div class="stat-label">YouTube Share</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateCombinedChart(youtubeTotal, instagramTotal) {
+            const canvas = document.getElementById('combinedChart');
+            if (!canvas) {
+                console.log('Canvas element not found');
+                return;
+            }
+            
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                console.log('Could not get canvas context');
+                return;
+            }
+            
+            // Destroy existing chart if it exists
+            if (window.combinedChart) {
+                window.combinedChart.destroy();
+            }
+
+            console.log('Creating combined chart with:', { youtubeTotal, instagramTotal });
+
+            window.combinedChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['YouTube', 'Instagram'],
+                    datasets: [{
+                        data: [youtubeTotal, instagramTotal],
+                        backgroundColor: ['#3b82f6', '#e1306c'],
+                        borderWidth: 4,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: { 
+                                    size: 14,
+                                    weight: '600'
+                                },
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    const total = youtubeTotal + instagramTotal;
+                                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                                    return `${label}: ${formatNumber(value)} (${percentage}%)`;
+                                }
+                            },
+                            padding: 12,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 13 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCombinedTables() {
+            // YouTube verticals table
+            const youtubeTableBody = document.getElementById('combinedYouTubeTable');
+            if (!youtubeTableBody) {
+                console.log('YouTube table body not found');
+                return;
+            }
+
+            const youtubeVerticals = YOUTUBE_SHEETS.map(sheet => ({
+                name: sheet.title,
+                views: youtubeVerticalViews[sheet.index] || 0
+            })).sort((a, b) => b.views - a.views);
+
+            youtubeTableBody.innerHTML = youtubeVerticals.map(item => `
+                <tr>
+                    <td style="font-weight: 500;">${item.name}</td>
+                    <td class="view-count-cell">${formatNumber(item.views)}</td>
+                </tr>
+            `).join('');
+
+            // Instagram channels table
+            const instagramTableBody = document.getElementById('combinedInstagramTable');
+            if (!instagramTableBody) {
+                console.log('Instagram table body not found');
+                return;
+            }
+
+            const instagramChannels = INSTAGRAM_SHEETS.map(sheet => ({
+                name: sheet.title,
+                views: instagramVerticalViews[sheet.index] || 0
+            })).sort((a, b) => b.views - a.views);
+
+            instagramTableBody.innerHTML = instagramChannels.map(item => `
+                <tr>
+                    <td style="font-weight: 500;">${item.name}</td>
+                    <td class="view-count-cell">${formatNumber(item.views)}</td>
+                </tr>
+            `).join('');
+
+            console.log('Tables updated:', { youtubeVerticals: youtubeVerticals.length, instagramChannels: instagramChannels.length });
         }
 
         // Initialize
