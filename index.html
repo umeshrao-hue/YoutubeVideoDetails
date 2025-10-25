@@ -1241,7 +1241,34 @@ try {
             );
 
             if (isCombinedFormat) {
-                // Process old combined format
+                // Check if this is a "Total only" format (like Adda247 sheet)
+                const hasOnlyTotal = data.some(item => {
+                    const vertical = item['Vertical'] || item['vertical'] || '';
+                    return vertical.toLowerCase() === 'total';
+                });
+
+                if (hasOnlyTotal) {
+                    // Handle sheets with only Total row (like Adda247)
+                    const totalRow = data.find(item => {
+                        const vertical = item['Vertical'] || item['vertical'] || '';
+                        return vertical.toLowerCase() === 'total';
+                    });
+                    
+                    if (totalRow) {
+                        const totalViews = parseInt(String(totalRow['Total Views'] || totalRow['total_views'] || totalRow['TotalViews'] || 0).replace(/,/g, ''));
+                        console.log('Processing Total-only format:', { totalViews });
+                        
+                        return {
+                            sortedData: [{ channel: 'Total', views: totalViews }],
+                            totalChannels: 1,
+                            totalViews: totalViews,
+                            avgViews: totalViews,
+                            topChannel: 'Total'
+                        };
+                    }
+                }
+
+                // Process normal combined format with individual verticals
                 const sortedData = data
                     .filter(item => {
                         const vertical = item['Vertical'] || item['vertical'] || '';
